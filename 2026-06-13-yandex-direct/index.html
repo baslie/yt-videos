@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Яндекс.Директ в 2026 работает не так, как думают — конспект вебинара</title>
+<meta name="description" content="Конспект вебинара по Яндекс.Директу 2026: как правильно настроенная реклама сливает бюджет, почему реклама показывается всем, прогнозируемая кликабельность, почему оптимизация маскирует проблему, и как управлять алгоритмами вместо слепого запуска.">
+<style>
+  :root{
+    --bg:#faf9f7;
+    --surface:#ffffff;
+    --surface-2:#f3f1ec;
+    --text:#262420;
+    --text-soft:#5c574f;
+    --text-faint:#8a8378;
+    --border:#e7e3db;
+    --accent:#9a6a3c;        /* тёплый приглушённый терракот/охра */
+    --accent-soft:#f0e7dc;
+    --accent-ink:#7a5128;
+    --ok:#3f7d52;
+    --shadow:0 1px 2px rgba(40,33,22,.04), 0 6px 24px rgba(40,33,22,.05);
+    --radius:14px;
+    --maxread:720px;
+    --font:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+    --serif:"Georgia","Times New Roman",serif;
+  }
+  html[data-theme="dark"]{
+    --bg:#17150f;
+    --surface:#201d16;
+    --surface-2:#262219;
+    --text:#ece7dd;
+    --text-soft:#b9b2a4;
+    --text-faint:#8b8473;
+    --border:#332f25;
+    --accent:#d3a36b;
+    --accent-soft:#2c2519;
+    --accent-ink:#e6c294;
+    --ok:#7bbf8c;
+    --shadow:0 1px 2px rgba(0,0,0,.3), 0 8px 30px rgba(0,0,0,.35);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--font);
+    font-size:18px;
+    line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+  }
+
+  /* progress bar */
+  #progress{
+    position:fixed;top:0;left:0;height:3px;width:0;
+    background:linear-gradient(90deg,var(--accent),var(--accent-ink));
+    z-index:60;transition:width .12s ease-out;
+  }
+
+  /* topbar */
+  .topbar{
+    position:sticky;top:0;z-index:50;
+    background:color-mix(in srgb,var(--bg) 86%,transparent);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--border);
+  }
+  .topbar-inner{
+    max-width:1180px;margin:0 auto;padding:10px 20px;
+    display:flex;align-items:center;justify-content:space-between;gap:16px;
+  }
+  .brand{display:flex;align-items:center;gap:10px;font-weight:600;font-size:15px;color:var(--text)}
+  .brand a{color:inherit;text-decoration:none}
+  .brand .dot{width:9px;height:9px;border-radius:50%;background:var(--accent)}
+  .back{color:var(--text-soft);text-decoration:none;font-size:14px}
+  .back:hover{color:var(--accent)}
+  .theme-toggle{
+    border:1px solid var(--border);background:var(--surface);color:var(--text-soft);
+    width:38px;height:38px;border-radius:10px;cursor:pointer;font-size:17px;
+    display:inline-flex;align-items:center;justify-content:center;transition:.15s;
+  }
+  .theme-toggle:hover{color:var(--accent);border-color:var(--accent)}
+
+  /* layout */
+  .wrap{max-width:1180px;margin:0 auto;padding:0 20px;
+    display:grid;grid-template-columns:260px minmax(0,1fr);gap:48px;}
+  aside{position:sticky;top:64px;align-self:start;height:calc(100vh - 80px);
+    overflow-y:auto;padding:28px 4px 40px;}
+  aside .toc-title{font-size:12px;letter-spacing:.08em;text-transform:uppercase;
+    color:var(--text-faint);margin:0 0 14px;font-weight:700;}
+  .toc{list-style:none;margin:0;padding:0;border-left:2px solid var(--border)}
+  .toc li{margin:0}
+  .toc a{display:block;padding:6px 0 6px 16px;margin-left:-2px;
+    border-left:2px solid transparent;color:var(--text-soft);
+    text-decoration:none;font-size:14.5px;line-height:1.4;transition:.15s;}
+  .toc a:hover{color:var(--accent)}
+  .toc a.active{color:var(--accent-ink);border-left-color:var(--accent);font-weight:600}
+
+  main{min-width:0;padding:8px 0 96px}
+  article{max-width:var(--maxread)}
+
+  /* hero */
+  .hero{padding:40px 0 8px}
+  .eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;
+    color:var(--accent-ink);background:var(--accent-soft);
+    padding:5px 12px;border-radius:999px;margin-bottom:18px}
+  h1{font-size:clamp(28px,5vw,42px);line-height:1.15;margin:.1em 0 .35em;
+    letter-spacing:-.01em;font-weight:800}
+  .lede{font-size:clamp(18px,2.4vw,21px);color:var(--text-soft);line-height:1.55;margin:0 0 24px}
+  .meta-row{display:flex;flex-wrap:wrap;gap:8px 20px;align-items:center;
+    padding:16px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);
+    font-size:14.5px;color:var(--text-soft)}
+  .meta-row b{color:var(--text)}
+  .meta-row .sep{color:var(--border)}
+
+  /* video embed + source */
+  .video{margin:24px 0 8px;border-radius:var(--radius);overflow:hidden;
+    border:1px solid var(--border);box-shadow:var(--shadow);background:#000}
+  .video iframe{display:block;width:100%;aspect-ratio:16/9;border:0}
+  .source-row{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center;
+    margin:14px 0 4px;font-size:14.5px}
+  .source-row a.src-btn{display:inline-flex;align-items:center;gap:8px;
+    text-decoration:none;color:var(--accent-ink);background:var(--accent-soft);
+    border:1px solid color-mix(in srgb,var(--accent) 25%,var(--border));
+    padding:7px 14px;border-radius:999px;font-weight:600;transition:.15s}
+  .source-row a.src-btn:hover{border-color:var(--accent)}
+
+  /* mobile toc */
+  .toc-mobile{display:none;margin:24px 0 8px;border:1px solid var(--border);
+    border-radius:12px;background:var(--surface);overflow:hidden}
+  .toc-mobile summary{cursor:pointer;padding:14px 18px;font-weight:600;list-style:none;
+    display:flex;align-items:center;justify-content:space-between}
+  .toc-mobile summary::-webkit-details-marker{display:none}
+  .toc-mobile summary::after{content:"▾";color:var(--text-faint);transition:.2s}
+  .toc-mobile[open] summary::after{transform:rotate(180deg)}
+  .toc-mobile ol{margin:0;padding:4px 18px 18px 36px;color:var(--text-soft)}
+  .toc-mobile a{color:var(--text-soft);text-decoration:none}
+  .toc-mobile a:hover{color:var(--accent)}
+
+  /* typography */
+  h2{font-size:clamp(23px,3.4vw,30px);line-height:1.25;margin:64px 0 4px;
+    letter-spacing:-.01em;font-weight:750;scroll-margin-top:80px;position:relative}
+  h2 .num{display:block;font-size:13px;font-weight:700;letter-spacing:.08em;
+    text-transform:uppercase;color:var(--accent);margin-bottom:8px}
+  h3{font-size:21px;margin:38px 0 6px;font-weight:700;scroll-margin-top:80px}
+  .anchor{color:var(--text-faint);text-decoration:none;opacity:0;margin-left:8px;
+    font-weight:400;transition:.15s}
+  h2:hover .anchor,h3:hover .anchor{opacity:1}
+  p{margin:16px 0}
+  article a{color:var(--accent-ink);text-decoration:underline;text-underline-offset:2px;text-decoration-thickness:1px}
+  strong{font-weight:700;color:var(--text)}
+  hr.div{border:0;border-top:1px solid var(--border);margin:56px 0}
+
+  ul,ol{padding-left:1.3em;margin:16px 0}
+  li{margin:8px 0}
+  ul.clean{list-style:none;padding-left:0}
+  ul.clean li{position:relative;padding-left:30px}
+  ul.clean li::before{content:"";position:absolute;left:4px;top:.62em;width:8px;height:8px;
+    border-radius:50%;background:var(--accent)}
+  ul.check li::before,ul.cross li::before{display:none}
+  ul.check li,ul.cross li{position:relative;padding-left:32px;list-style:none}
+  ul.check,ul.cross{padding-left:0}
+  ul.check li::after{content:"✓";position:absolute;left:2px;top:0;color:var(--ok);font-weight:800}
+  ul.cross li::after{content:"✕";position:absolute;left:2px;top:0;color:#c2694e;font-weight:800}
+
+  /* callout */
+  .callout{margin:30px 0;padding:22px 24px 22px 26px;border-radius:var(--radius);
+    background:var(--accent-soft);border:1px solid color-mix(in srgb,var(--accent) 25%,var(--border));
+    position:relative}
+  .callout .k{display:block;font-size:12px;font-weight:700;letter-spacing:.08em;
+    text-transform:uppercase;color:var(--accent-ink);margin-bottom:8px}
+  .callout p{margin:0;font-size:19px;line-height:1.5;color:var(--text)}
+  .callout p+p{margin-top:10px;font-size:16px;color:var(--text-soft)}
+
+  .note{margin:26px 0;padding:18px 20px;border-left:3px solid var(--accent);
+    background:var(--surface-2);border-radius:0 10px 10px 0;font-size:16.5px;color:var(--text-soft)}
+  .note b{color:var(--text)}
+
+  /* case cards */
+  .cases{display:grid;gap:18px;margin:28px 0}
+  .case{border:1px solid var(--border);border-radius:var(--radius);background:var(--surface);
+    box-shadow:var(--shadow);padding:22px 24px}
+  .case-head{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:8px}
+  .case-name{font-weight:750;font-size:18px}
+  .case-name span{display:block;font-weight:500;font-size:14px;color:var(--text-faint);margin-top:2px}
+  .case-num{font-size:26px;font-weight:800;color:var(--accent-ink);white-space:nowrap}
+  .case p{margin:12px 0 0;font-size:16px;color:var(--text-soft)}
+
+  /* example block (механика «как это ломается») */
+  .mech{display:grid;gap:16px;margin:28px 0}
+  .mech-item{border:1px solid var(--border);border-radius:var(--radius);background:var(--surface);
+    box-shadow:var(--shadow);overflow:hidden}
+  .mech-top{padding:16px 22px;background:var(--surface-2);border-bottom:1px solid var(--border);
+    font-weight:700;font-size:16.5px}
+  .mech-top .tag{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.05em;
+    text-transform:uppercase;color:var(--accent-ink);background:var(--accent-soft);
+    padding:2px 9px;border-radius:7px;margin-right:10px;vertical-align:middle}
+  .mech-body{padding:16px 22px 20px}
+  .mech-body p{margin:8px 0;font-size:15.5px;color:var(--text-soft)}
+  .mech-body p:first-child{margin-top:0}
+  .mech-body .res{margin-top:12px;font-size:15px;color:var(--text);font-weight:600}
+  .mech-body .res::before{content:"→ ";color:#c2694e;font-weight:800}
+
+  /* steps */
+  .steps{counter-reset:s;list-style:none;padding:0;margin:28px 0;display:grid;gap:14px}
+  .steps li{counter-increment:s;position:relative;padding:18px 20px 18px 64px;
+    border:1px solid var(--border);border-radius:12px;background:var(--surface);box-shadow:var(--shadow)}
+  .steps li::before{content:counter(s);position:absolute;left:18px;top:16px;
+    width:32px;height:32px;border-radius:9px;background:var(--accent);color:#fff;
+    display:flex;align-items:center;justify-content:center;font-weight:800;font-size:15px}
+  .steps li b{display:block;margin-bottom:2px}
+  .steps li span{color:var(--text-soft);font-size:15.5px}
+
+  /* price table */
+  .price{width:100%;border-collapse:collapse;margin:24px 0;font-size:16px;
+    border:1px solid var(--border);border-radius:12px;overflow:hidden}
+  .price th,.price td{text-align:left;padding:13px 18px;border-bottom:1px solid var(--border);vertical-align:top}
+  .price thead th{background:var(--surface-2);font-size:13px;letter-spacing:.04em;
+    text-transform:uppercase;color:var(--text-faint)}
+  .price tbody tr:last-child td{border-bottom:0}
+  .price td.amt{font-weight:750;color:var(--accent-ink);white-space:nowrap}
+  .price td.amt small{display:block;font-weight:500;color:var(--text-faint);font-size:12.5px;margin-top:3px}
+
+  /* stat strip */
+  .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:28px 0}
+  .stat{padding:20px;border:1px solid var(--border);border-radius:12px;background:var(--surface);text-align:center}
+  .stat .big{font-size:28px;font-weight:800;color:var(--accent-ink);line-height:1.1}
+  .stat .cap{font-size:13.5px;color:var(--text-soft);margin-top:6px}
+
+  /* back to top */
+  #totop{position:fixed;right:22px;bottom:22px;width:46px;height:46px;border-radius:50%;
+    border:1px solid var(--border);background:var(--surface);color:var(--accent);
+    box-shadow:var(--shadow);cursor:pointer;font-size:20px;opacity:0;pointer-events:none;
+    transition:.2s;z-index:40}
+  #totop.show{opacity:1;pointer-events:auto}
+  #totop:hover{border-color:var(--accent)}
+
+  footer{border-top:1px solid var(--border);margin-top:40px;padding:30px 0 60px;
+    color:var(--text-faint);font-size:14.5px}
+  footer a{color:var(--text-soft)}
+
+  @media (max-width:920px){
+    .wrap{grid-template-columns:1fr;gap:0}
+    aside{display:none}
+    .toc-mobile{display:block}
+    body{font-size:17px}
+    main{padding-top:0}
+  }
+  @media (max-width:560px){
+    .stats{grid-template-columns:1fr}
+    .topbar-inner{padding:10px 16px}
+    .wrap{padding:0 16px}
+    .case-head{flex-direction:column;gap:4px}
+  }
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+</style>
+</head>
+<body>
+<div id="progress"></div>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="brand"><span class="dot"></span><a href="../index.html">yt-videos</a>
+      <span class="sep" style="color:var(--border)">/</span>
+      <a class="back" href="../index.html">← ко всем конспектам</a>
+    </div>
+    <button class="theme-toggle" id="theme" aria-label="Переключить тему" title="Светлая / тёмная тема">◐</button>
+  </div>
+</div>
+
+<div class="wrap">
+  <aside>
+    <p class="toc-title">Содержание</p>
+    <ul class="toc" id="toc">
+      <li><a href="#about">О чём это видео</a></li>
+      <li><a href="#settings">Как правильная реклама сливает бюджет</a></li>
+      <li><a href="#help">Что Яндекс пишет в справке</a></li>
+      <li><a href="#everyone">Реклама показывается всем</a></li>
+      <li><a href="#ctr">Прогнозируемая кликабельность</a></li>
+      <li><a href="#volume">Алгоритм нацелен на объём</a></li>
+      <li><a href="#optimize">Почему оптимизация маскирует проблему</a></li>
+      <li><a href="#platforms">Что такое плохие площадки</a></li>
+      <li><a href="#do">Что со всем этим делать</a></li>
+      <li><a href="#results">Результаты подхода</a></li>
+      <li><a href="#course">Что за курс у автора</a></li>
+      <li><a href="#whom">Кому подходит и кому нет</a></li>
+      <li><a href="#price">Тарифы</a></li>
+      <li><a href="#students">Кейсы учеников</a></li>
+      <li><a href="#objections">Три возражения</a></li>
+      <li><a href="#summary">Итог</a></li>
+    </ul>
+  </aside>
+
+  <main>
+  <article>
+    <header class="hero">
+      <span class="eyebrow">Конспект вебинара · Яндекс.Директ</span>
+      <h1>Яндекс.Директ в 2026 работает не так, как думает большинство специалистов</h1>
+      <p class="lede">Большой разбор о том, как на самом деле принимают решения алгоритмы Директа:
+        почему «правильно настроенная» реклама сливает бюджет, как мы сами обучаем кампании на
+        мусорный трафик и почему ручная оптимизация чаще мешает, чем помогает.</p>
+      <div class="meta-row">
+        <span>Спикер: <b>директолог с 10+ годами практики</b> (бывший сотрудник Яндекса)</span>
+        <span class="sep">·</span>
+        <span>Формат: <b>вебинар-урок</b> с продающим блоком</span>
+        <span class="sep">·</span>
+        <span>~14 минут чтения</span>
+      </div>
+
+      <div class="video">
+        <iframe src="https://www.youtube.com/embed/JWF0lt4QK2k"
+          title="Яндекс.Директ в 2026 работает не так, как думает большинство специалистов — видео на YouTube" loading="lazy"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
+      </div>
+      <div class="source-row">
+        <a class="src-btn" href="https://www.youtube.com/watch?v=JWF0lt4QK2k" target="_blank" rel="noopener">▶ Смотреть оригинал на YouTube</a>
+      </div>
+
+      <details class="toc-mobile">
+        <summary>Содержание</summary>
+        <ol>
+          <li><a href="#about">О чём это видео</a></li>
+          <li><a href="#settings">Как правильная реклама сливает бюджет</a></li>
+          <li><a href="#help">Что Яндекс пишет в справке</a></li>
+          <li><a href="#everyone">Реклама показывается всем</a></li>
+          <li><a href="#ctr">Прогнозируемая кликабельность</a></li>
+          <li><a href="#volume">Алгоритм нацелен на объём</a></li>
+          <li><a href="#optimize">Почему оптимизация маскирует проблему</a></li>
+          <li><a href="#platforms">Что такое плохие площадки</a></li>
+          <li><a href="#do">Что со всем этим делать</a></li>
+          <li><a href="#results">Результаты подхода</a></li>
+          <li><a href="#course">Что за курс у автора</a></li>
+          <li><a href="#whom">Кому подходит и кому нет</a></li>
+          <li><a href="#price">Тарифы</a></li>
+          <li><a href="#students">Кейсы учеников</a></li>
+          <li><a href="#objections">Три возражения</a></li>
+          <li><a href="#summary">Итог</a></li>
+        </ol>
+      </details>
+    </header>
+
+    <!-- 1 -->
+    <h2 id="about"><span class="num">01</span>О чём это видео<a class="anchor" href="#about">#</a></h2>
+    <p>Последние годы Яндекс делает всё, чтобы специалист перестал думать: вставь ссылку на сайт,
+      включи автотаргетинг (галочку которого иногда даже нельзя выключить), доверься алгоритмам,
+      пополни счёт — и всё заработает. И в целом это правда работает. Но <strong>только пока вам
+      везёт с клиентом</strong>.</p>
+    <p>При первых же проблемах большинство специалистов не понимает, почему дорожает заявка,
+      почему кампания «обучилась странно», почему идёт мусорный трафик с непонятных площадок.
+      На прошлой неделе заявка была по 800 ₽, ничего не меняли — на этой полторы-две тысячи. Что
+      делать, непонятно. В эпоху ручных стратегий всё было прозрачно: выключил ненужный возраст,
+      ключевое слово, объявление — и видно, что происходит. Сейчас всё скрыто за алгоритмами.</p>
+
+    <div class="callout">
+      <span class="k">Главное деление</span>
+      <p>Одни специалисты просто жмут кнопки и перезапускают кампании, ругая Яндекс за слитые
+        деньги. Другие понимают, <strong>как именно реклама и алгоритмы принимают решения</strong>,
+        и на основе этих данных принимают решения сами.</p>
+      <p>У второй группы выше чеки, больше клиентов и дольше удержание. Цель видео — научиться
+        управлять рекламой, а не запускать кампании вслепую и бесконечно их перезапускать.</p>
+    </div>
+
+    <p>Алгоритмы — это нормально, их не нужно отключать. Автор сам ими активно пользуется. Но важно
+      понимать, <strong>почему показывается именно этот креатив, почему бюджет уходит именно в эту
+      группу</strong> и почему чистка площадок ничего не меняет. Разбор построен на справке Яндекса
+      и личной практике: от настроек до главной мысли о том, как кампании сами обучаются на мусор.</p>
+
+    <!-- 2 -->
+    <h2 id="settings"><span class="num">02</span>Как «правильно настроенная» реклама сливает бюджет<a class="anchor" href="#settings">#</a></h2>
+    <p>Вводный блок: пройдёмся по настройкам, которые кажутся логичными и правильными, и посмотрим,
+      в каком контексте они работают, а в каком — ломают кампанию. Важная оговорка автора:
+      <strong>никакой единой «системы», связок и шаблонов не существует</strong>. Любую настройку
+      можно применять — если можешь объяснить, зачем и почему. Проблема не в кнопках, а в бездумном
+      их использовании.</p>
+
+    <h3>Корректировки по полу и возрасту</h3>
+    <p>Логично сделать повышающие корректировки на «нужных» и понижающие на «ненужных». Но из-за
+      большого количества корректировок заявки выходят дороже, а качество — хуже. Уверены ли вы,
+      что Яндекс точно определяет пол и возраст? Если человек ввёл «купить гвозди оптом» и кликнул
+      по объявлению про оптовые гвозди — неважно, кем его считает Яндекс, спрос явно выражен.</p>
+    <div class="note">Пример: на курсе по созданию игр продажи шли с возраста 45–54 по статистике
+      Яндекса — хорошие продажи. Но отдел продаж говорит, что таких людей у них нет. То есть
+      <b>реальный возраст этих людей другой</b>, а метка Яндекса — условность.</div>
+    <p>Значит ли это, что корректировки не нужны вовсе? Нет. Отключать сегмент стоит, только когда
+      он <strong>точно заинтересуется товаром, но при этом не нужен вам</strong>:</p>
+    <ul class="clean">
+      <li>Курс по нейросетям: люди 55+ активно оставляют заявки, приходят на вебинары, часами
+        общаются с отделом продаж — но не покупают. Тогда 55+ отключаем.</li>
+      <li>Женский курс на деликатную тему: мужчины заходят из любопытства, приходят на вебинары,
+        но почти не покупают. Отключаем мужчин.</li>
+    </ul>
+
+    <h3>Много объявлений в группе</h3>
+    <p>Таргетологи, привыкшие к Instagram и VK, грузят в группу по 20 объявлений — разные картинки,
+      фоны, сочетания заголовков. Кажется, что это даёт алгоритму простор. По факту весь бюджет
+      потратит <strong>одно объявление</strong>, а у части — ноль показов и ноль кликов, и так и
+      останется. Вы вроде ничего не сломали, но сделали лишнюю работу.</p>
+
+    <h3>Загадка двух объявлений</h3>
+    <div class="callout">
+      <span class="k">Вопрос на подумать</span>
+      <p>Есть два объявления: в одном заявка по 70 ₽, в другом — по 150 ₽. На какое алгоритм даст
+        больше бюджета? Кажется, на то, где 70 ₽. А по факту туда — копейки, а на «дорогое» уходит
+        20 тысяч. Почему — ответ во втором блоке.</p>
+    </div>
+
+    <h3>Автотаргет съедает бюджет, ключевые слова простаивают</h3>
+    <p>Стандартная история: включили автотаргет, добавили ключевые слова, накинули интересы —
+      «чтобы Яндексу было больше возможностей обучиться». Откройте любую такую кампанию: с
+      вероятностью ~80% <strong>почти весь бюджет уйдёт на автотаргет</strong>. На реальных группах
+      все показы пришли на автотаргет (2200 кликов), а на целевое ключевое слово — пара кликов.
+      И это не потому, что автотаргет «работает лучше».</p>
+
+    <h3>Средняя цена конверсии и другие «ломающие» функции</h3>
+    <p>Указать среднюю цену конверсии кажется логичным: «скажу, сколько готов платить». Но,
+      ограничивая цену, вы заставляете Яндекс <strong>перестраховываться и показываться на плохих
+      площадках</strong> либо давать нестабильный трафик. В список функций, которые ломают кампанию
+      при бездумном применении, автор добавляет:</p>
+    <ul class="clean">
+      <li>пакетные стратегии;</li>
+      <li>работа с готовыми загруженными аудиториями;</li>
+      <li>ограничение цены клика в кампании;</li>
+      <li>семантическое соответствие на поиске;</li>
+      <li>категории на автотаргетинге.</li>
+    </ul>
+    <div class="note">Смысл не в том, что это «нельзя использовать». Смысл в том, чтобы понимать, в
+      каком случае и зачем функция нужна и к чему приведёт. <b>Можно всё что угодно, если можешь
+      объяснить зачем и почему.</b></div>
+
+    <!-- 3 -->
+    <h2 id="help"><span class="num">03</span>Что Яндекс пишет в справке<a class="anchor" href="#help">#</a></h2>
+    <p>Если проблема не в настройках и не в кнопках — то в чём? Чтобы не выдумывать, автор открыл
+      справку Яндекса и проследил цепочку определений до конца.</p>
+    <ul class="clean">
+      <li><strong>Автотаргетинг в РСЯ</strong> — показ объявлений без ключевых фраз: система
+        анализирует объявление и страницу перехода и определяет, соответствует ли оно интересам
+        пользователя.</li>
+      <li><strong>Ключевая фраза</strong> определяет не конкретный запрос, а <strong>тематику
+        площадок и интересы</strong> пользователя. То есть «купить стул» → Яндекс относит вас к
+        категории интересов (мебель, покупки в интернете), а не показывает строго по фразе.</li>
+      <li><strong>Интересы</strong> — показы по краткосрочным интересам и привычкам возможны
+        благодаря технологии «Крипта».</li>
+      <li><strong>«Крипта»</strong> — это то, какие слова вы используете в запросах, какие сайты
+        посещаете, в какое время выходите в интернет и множество других факторов: всего около
+        <strong>300 факторов</strong>, обновляемых каждый день.</li>
+    </ul>
+    <div class="callout">
+      <span class="k">Вывод из справки</span>
+      <p>Огромная «шайтан-машина» по 300 факторов на человека сама решает, к каким интересам и
+        группам вас отнести — и в какой-то момент решает показать вам объявление, к товару которого
+        вы прямого отношения не имеете.</p>
+    </div>
+
+    <!-- 4 -->
+    <h2 id="everyone"><span class="num">04</span>Главная идея: реклама показывается всем, а объявление создаёт аудиторию<a class="anchor" href="#everyone">#</a></h2>
+    <p>Показываемся ли мы тем, кому интересен именно наш товар («купить зелёный пушистый стул»)? Нет
+      — это интересы, 300 факторов. Тем, кому интересна тематика (стулья вообще)? Тоже не совсем.
+      Чтобы точно не ошибиться, проще считать, что <strong>мы показываемся всем — всем, кто хоть
+      рядом проходил</strong>.</p>
+    <div class="note">Доказательство в Wordstat: вкладка «Похожие» для фразы «онлайн-курсы дизайна»
+      выдаёт упоминания онлайн-школ, фриланса, GetCourse, «Обучай.ру» и прочее. Именно так широко
+      и берёт автотаргет — он показывается всем мимо проходящим.</div>
+
+    <h3>Эксперимент со словом «стул»</h3>
+    <p>Запустили онлайн-курсы по программированию на ключевое слово <strong>«стул»</strong> с
+      выключенным автотаргетом. Обычно заявки идут на первый-второй день, а тут пошли через три
+      дня. Но через две недели результат был <strong>таким же, как в кампаниях с «правильными»
+      ключами</strong>. Что произошло:</p>
+    <ul class="clean">
+      <li>Первый день показов «по стулу» — заявок нет, Яндекс пошёл искать другую аудиторию.</li>
+      <li>Показал людям с интересом «финансы» — не кликают. Другой сегмент — снова мимо.</li>
+      <li>Где-то кликнули — алгоритм начал сужать и в итоге дошёл до нужной аудитории.</li>
+    </ul>
+    <p>Яндекс постоянно ищет новые сегменты. Ключевые слова и объявления дают лишь
+      <strong>стартовую подсказку «туда смотри»</strong>, но дальше система ищет, где людей и заявок
+      больше. Чем больше людей с определёнными характеристиками кликает на креатив — тем большему
+      числу похожих он покажется.</p>
+
+    <h3>Школа рисования: переобучение на «мам в декрете»</h3>
+    <p>Четыре группы с разной мотивацией: «как маме в декрете начать рисовать», «как подрабатывать
+      вечерами», «рисовать, чтобы радовать близких», «как художнику больше зарабатывать». Постепенно
+      <strong>почти весь бюджет уходит на группу про мам в декрете</strong>, и вся кампания
+      обучается на них. А самая целевая группа (художники, кто хочет зарабатывать) с самой дешёвой
+      заявкой получает всего пару лидов.</p>
+    <div class="callout">
+      <span class="k">Ключевая мысль</span>
+      <p>Объявление создаёт аудиторию. Чтобы привлечь другую аудиторию, нужно не собирать новые
+        ключи и интересы, а делать <strong>радикально другое объявление</strong>. И наоборот: задача
+        директолога — сделать объявление таким, чтобы по нему <strong>не кликали лишние люди</strong>
+        (поставь полуголую женщину — кампания переобучится на мужчин, кликов много, заявок ноль).</p>
+    </div>
+
+    <!-- 5 -->
+    <h2 id="ctr"><span class="num">05</span>Прогнозируемая кликабельность — главный враг<a class="anchor" href="#ctr">#</a></h2>
+    <p>На поиске есть две одинаковые кампании с одинаковыми фразами, но одна почти вдвое дешевле.
+      Главный показатель здесь — <strong>CTR (кликабельность)</strong>: где процент откликнувшихся
+      выше, там заявка и цена ниже. Цена на поиске складывается из аукциона за фразу и
+      <strong>степени соответствия запросу</strong>, которую Яндекс считает сам.</p>
+    <p>Но когда кампания только запущена, реальной кликабельности ещё нет. И Яндекс ориентируется на
+      <strong>прогнозируемую кликабельность</strong> креатива — вот наш главный враг, который мы
+      обычно не берём в расчёт. Бюджет утекает туда, где <strong>прогнозируемая кликабельность и
+      объём аудитории больше</strong>, а не туда, где дешевле лид.</p>
+    <ul class="clean">
+      <li><strong>Почему мамы в декрете забрали бюджет:</strong> их прогнозируемый объём и
+        кликабельность выше, чем у художников-предпринимателей.</li>
+      <li><strong>Почему всё уходит в автотаргет:</strong> ключевые слова — это ограничение, а у
+        автотаргета прогнозируемо больше объёма, значит и бюджета.</li>
+      <li><strong>Почему мастер-кампании и пакетные стратегии отдают всё в РСЯ:</strong> не потому,
+        что РСЯ эффективнее, а потому что там прогнозируемо можно потратить больше и получить больше
+        охвата.</li>
+    </ul>
+
+    <!-- 6 -->
+    <h2 id="volume"><span class="num">06</span>Алгоритм нацелен на объём, а не на дешевизну<a class="anchor" href="#volume">#</a></h2>
+    <p>Прогнозируемый объём — это не цена конверсии. Яндекс прогнозирует больше кликов, переходов и
+      возможных лидов — и отольёт больше бюджета. Это не обман: алгоритм правда ищет, где у вас
+      <strong>может быть больше лидов</strong>. Он нацелен на «больше», а не на «дешевле».</p>
+    <p>Если найдётся маленький сегмент с очень дешёвым лидом — алгоритм вытащит оттуда 3–4 заявки и
+      пойдёт дальше, потому что долго в нём не продержится. Поэтому он сразу целится в объём. А
+      директолог, наоборот, пытается загнать его в этот маленький кусочек ручной оптимизацией — и
+      не выходит.</p>
+    <div class="note">Доказательство: всплывашки, рекомендации и менеджеры Яндекса всегда говорят
+      одно — <b>«увеличьте недельный бюджет»</b>. Нет показов → увеличьте бюджет. Плохо обучается →
+      поставьте пакетную стратегию и увеличьте бюджет. Алгоритму нужно больше объёма и больше
+      выполненных целей; и да, он действительно работает лучше при большом бюджете.</div>
+    <div class="callout">
+      <span class="k">Запомнить раз и навсегда</span>
+      <p>Алгоритм ничего не сливает самостоятельно — у него нет цели забрать ваши деньги. Он
+        масштабирует <strong>не там, где ниже цена заявки, а там, где видит более сильные сигналы от
+        аудитории</strong> и больший потенциальный объём лидов и трафика.</p>
+    </div>
+
+    <!-- 7 -->
+    <h2 id="optimize"><span class="num">07</span>Почему оптимизация маскирует проблему, а не решает её<a class="anchor" href="#optimize">#</a></h2>
+    <p>Классические «правильные» оптимизации, которые делают только хуже:</p>
+    <div class="mech">
+      <div class="mech-item">
+        <div class="mech-top"><span class="tag">Объявления</span>Оставить только «дешёвое» объявление</div>
+        <div class="mech-body">
+          <p>Одно объявление даёт лиды по 120 ₽, остальные — по 500 ₽. Отключаем «дорогие»,
+            оставляем «дешёвое».</p>
+          <p>Но алгоритм уже получил по нему 5 лидов и по своим сигналам (на коротких отрезках, не
+            по общему CTR за две недели) понял, что объёма там нет, аудитория реагирует плохо, и стал
+            переключаться. А мы его вернули туда, где он уже «доказал», что аудитории нет.</p>
+          <p class="res">Лиды стали в 2 раза дороже, чем были.</p>
+        </div>
+      </div>
+      <div class="mech-item">
+        <div class="mech-top"><span class="tag">Возраст</span>Оставить только «дешёвый» возраст 18–25</div>
+        <div class="mech-body">
+          <p>18–25 даёт лиды вдвое дешевле, но Яндекс «почему-то» не даёт туда денег. Отключаем
+            остальные возрасты.</p>
+          <p>Та же механика: он получил оттуда 5 конверсий, еле встав на хорошие места, и понимает,
+            что объёма для дальнейшего масштабирования нет.</p>
+          <p class="res">Заявка снова в 2 раза дороже.</p>
+        </div>
+      </div>
+      <div class="mech-item">
+        <div class="mech-top"><span class="tag">Ставка</span>Ограничить максимальную цену клика в РСЯ</div>
+        <div class="mech-body">
+          <p>Видим клики по 160 ₽, кажется дорого — ставим ограничение по ставке.</p>
+          <p>Снижая ставку, мы заставляем Яндекс показываться на дешёвых, некачественных площадках.</p>
+          <p class="res">Получаем грязные площадки вместо экономии.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 8 -->
+    <h2 id="platforms"><span class="num">08</span>Что такое «плохие площадки»<a class="anchor" href="#platforms">#</a></h2>
+    <p>Хорошая площадка — например, сайт Яндекса: объявление крупное, на светлом фоне, всё читается.
+      Плохая — какой-нибудь сайт «lord-сериал / lord-фильм»: пять объявлений в ряд внизу, мелким
+      шрифтом, скомканы, сбоку вылезает ещё одно. По таким объявлениям кликают случайно, шанс
+      реального интереса мал.</p>
+    <p>Кто там показывается чаще всего:</p>
+    <ul class="clean">
+      <li>сами специалисты по Директу и рекламщики;</li>
+      <li>малый бизнес с кампаниями по средней цене конверсии или с оплатой за конверсию;</li>
+      <li>кампании с маленьким бюджетом, которым Яндекс не может дать высокие ставки и хорошие
+        места.</li>
+    </ul>
+    <div class="note">Двойной стандарт с оговоркой: если новая кампания на небольшом бюджете попала
+      на такую площадку — это нормально, она ещё обучается, бюджет потом увеличат. Но если вы сами
+      <b>занижаете цену клика</b> — вы намеренно загоняете себя на эти непонятные площадки (а есть и
+      хуже — через VPN и т.п.).</div>
+
+    <!-- 9 -->
+    <h2 id="do"><span class="num">09</span>Что со всем этим делать<a class="anchor" href="#do">#</a></h2>
+    <ul class="clean">
+      <li><strong>Оптимизировать стоит в первую очередь поиск.</strong> Там реально много работы:
+        главное — добиваться соответствия запросу (фраза в заголовке и тексте, в тайтле сайта,
+        кликабельность). Автотаргет такого соответствия не даёт.</li>
+      <li><strong>В РСЯ выгоднее запускать новые гипотезы, чем чинить старые.</strong> Когда мы
+        лезем в алгоритм и пытаемся его сузить — он снова расширяется. Лучше запустить новую
+        гипотезу с новыми объявлениями, которые сами найдут и создадут нужную аудиторию.</li>
+      <li><strong>Фильтруйте аудиторию объявлением.</strong> Это главный инструмент нацеливания:
+        объявление должно отсекать лишних и притягивать нужных.</li>
+    </ul>
+    <div class="callout">
+      <span class="k">Суть подхода</span>
+      <p>Алгоритм работает только с тем, что вы ему дали, и с сигналами, которые он получает от
+        ваших объявлений и настроек. Управлять рекламой — значит управлять этими сигналами, а не
+        бить молотком по случайным кнопкам.</p>
+    </div>
+
+    <!-- 10 -->
+    <h2 id="results"><span class="num">10</span>Результаты подхода<a class="anchor" href="#results">#</a></h2>
+    <p>Понимание механики работает и на маленьких, и на крупных проектах:</p>
+    <div class="stats">
+      <div class="stat"><div class="big">×20</div><div class="cap">рост бюджета при росте цены лида всего ×2 и неизменной окупаемости (инвестиции в недвижимость)</div></div>
+      <div class="stat"><div class="big">25 000 ₽/день</div><div class="cap">бюджет за месяц с нуля при цене лида ~250 ₽</div></div>
+      <div class="stat"><div class="big">16 млн ₽</div><div class="cap">личный рекорд месячного бюджета с одного аккаунта</div></div>
+    </div>
+    <p>Это достигалось не схемами и шаблонами, а пониманием механики. Ниши, с которыми работал автор:
+      онлайн-школы, дилерские центры, аренда вилл, экоутеплители, оптовики, услуги адвокатов, частная
+      музыкальная школа, CRM для B2B, оформление медкнижек и др. <strong>Не подходит только для
+      крупных интернет-магазинов</strong> — там нужны фиды и e-commerce-стратегии.</p>
+
+    <hr class="div">
+
+    <!-- 11 -->
+    <h2 id="course"><span class="num">11</span>Что за курс у автора<a class="anchor" href="#course">#</a></h2>
+    <p>Дальше — продающая часть вебинара. Автор собрал свой опыт в курс, потому что устал на каждом
+      разборе кабинета повторять одно и то же. Принципиальное отличие от рынка: это
+      <strong>не пошаговая переозвучка справки</strong> («куда нажать»), а попытка научить
+      по-другому мыслить — понимать, почему алгоритм поступает так, а не иначе.</p>
+    <div class="callout">
+      <span class="k">Аналогия про дискриминант</span>
+      <p>В школе формулу дискриминанта просто зубрят. В университете перед ней — куча доказательств,
+        зачем она и откуда взялась. Курс устроен так же: не «поставьте галочку», а «вот что она
+        значит, вот как реагирует — поэтому решайте сами».</p>
+    </div>
+    <p>Состав продукта:</p>
+    <ul class="clean">
+      <li><strong>33 урока</strong> с бессрочным доступом, три блока: <strong>РСЯ</strong>
+        (как она работает, ключи, Wordstat, креативы, заголовки, автостратегии, корректировки),
+        <strong>поиск</strong> (семантика, минус-слова, анализ кампаний) и <strong>общая
+        аналитика</strong> (как находить реальные причины и узкие места, как наращивать бюджет,
+        ничего не ломая).</li>
+      <li>Под каждый блок с презентацией-логикой идёт урок со скринкастом «в кабинете» — для
+        новичков.</li>
+      <li><strong>3 больших бонусных урока</strong> приглашённых спикеров (по 1–1,5 часа,
+        бессрочно): масштабирование онлайн-школ, анализ ЦА и трафик в Telegram/Max.</li>
+      <li><strong>Домашние задания с проверкой</strong> ваших креативов и собранных кампаний
+        (поиск и РСЯ отдельно) — обратная связь текстом или видеоразбором кабинета.</li>
+      <li><strong>Общий чат</strong> с ответами на вопросы и комьюнити (бессрочно).</li>
+    </ul>
+    <p>Дополнительные материалы: пак рабочих креативов агентства под 20 ниш (по 5–6 на нишу),
+      GPT-промты для заголовков и креативов в РСЯ, расширение для автоматической чистки площадок,
+      агент для глубинного анализа ЦА и агент для генерации объявлений.</p>
+
+    <!-- 12 -->
+    <h2 id="whom"><span class="num">12</span>Кому подходит, а кому нет<a class="anchor" href="#whom">#</a></h2>
+    <ul class="check">
+      <li><strong>Новичкам с нуля</strong> — есть отдельные уроки про создание аккаунта и
+        маркировку, но уже через современную логику. Их даже не придётся переучивать, как
+        «старичков».</li>
+      <li><strong>Таргетологам и маркетологам</strong> из Telegram Ads, Instagram, VK Ads — освоить
+        дополнительную площадку и допродавать её клиентам, повышая чек.</li>
+      <li><strong>Опытным директологам</strong> — работа с аналитикой, увеличение объёма заявок,
+        разборы кабинетов, которые принесли клиентам сотни тысяч рублей.</li>
+    </ul>
+    <ul class="cross">
+      <li><strong>Для крупных интернет-магазинов</strong> (50–200+ наименований) — там нужны фиды,
+        e-commerce и отдельные стратегии, которым стоит посвящать отдельный курс на десятки часов.</li>
+    </ul>
+
+    <!-- 13 -->
+    <h2 id="price"><span class="num">13</span>Тарифы<a class="anchor" href="#price">#</a></h2>
+    <p>Все тарифы включают бессрочный доступ к урокам, бонусным урокам и общему чату. Цены
+      аукционные — заявлено повышение через 7 дней после старта продаж.</p>
+    <table class="price">
+      <thead>
+        <tr><th>Тариф</th><th>Что входит</th><th>Цена</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><b>С чатом</b></td>
+          <td>Записи уроков, бонусные уроки и чат с обратной связью — бессрочно. Без проверки ДЗ и
+            личных разборов кампаний.</td>
+          <td class="amt">24 990 ₽<small>≈ 2 600 ₽/мес в рассрочку</small></td>
+        </tr>
+        <tr>
+          <td><b>С домашними заданиями</b></td>
+          <td>Всё то же плюс проверка и контроль ДЗ, отдельные разборы вашей поисковой и РСЯ-кампании
+            в течение 2 месяцев после покупки.</td>
+          <td class="amt">39 990 ₽<small>≈ 4 160 ₽/мес в рассрочку</small></td>
+        </tr>
+        <tr>
+          <td><b>С личной консультацией</b></td>
+          <td>Всё из предыдущего плюс индивидуальная консультация с погружением в проект (1–2 созвона).
+            Всего 3 места в месяц.</td>
+          <td class="amt">49 990 ₽<small>≈ 5 200 ₽/мес в рассрочку</small></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- 14 -->
+    <h2 id="students"><span class="num">14</span>Кейсы учеников<a class="anchor" href="#students">#</a></h2>
+    <div class="cases">
+      <div class="case">
+        <div class="case-head">
+          <div class="case-name">Арсений Верещагин <span>с нуля</span></div>
+          <div class="case-num">200 000 ₽/мес</div>
+        </div>
+        <p>Вышел на доход 200 тыс. ₽ в месяц, ведёт 5 клиентов. Начинал, не зная даже о
+          существовании Яндекс.Директа.</p>
+      </div>
+      <div class="case">
+        <div class="case-head">
+          <div class="case-name">Виктория Стюжанина <span>экс-таргетолог Facebook</span></div>
+          <div class="case-num">×5 дохода</div>
+        </div>
+        <p>Перевела клиентов с Facebook на Директ; доход вырос в 5 раз, бюджет под управлением —
+          91 млн ₽ за год. Освоила азы быстро, несмотря на неудачный прежний опыт клиентов в Директе.</p>
+      </div>
+      <div class="case">
+        <div class="case-head">
+          <div class="case-name">Лена Лещенко <span>опытный специалист</span></div>
+          <div class="case-num">до 500 000 ₽</div>
+        </div>
+        <p>Доход вырос до 500 тыс. ₽.</p>
+      </div>
+      <div class="case">
+        <div class="case-head">
+          <div class="case-name">Александр <span>инфопродукт, свой трафик</span></div>
+          <div class="case-num">2 млн ₽/мес</div>
+        </div>
+        <p>Был «вечно не работающий Директ» и доход 150 тыс. ₽ на своём продукте. После перехода на
+          систему из курса всё стабильно заработало — вышел на 2 млн ₽ в месяц и метит в 10 млн.</p>
+      </div>
+      <div class="case">
+        <div class="case-head">
+          <div class="case-name">Светлана и Анна <span>с нуля</span></div>
+          <div class="case-num">50–60 тыс. ₽ чек</div>
+        </div>
+        <p>Светлана — 3–5 постоянных клиентов со средним чеком 50 тыс. ₽. Анна — 6 новых клиентов со
+          средним чеком 50–60 тыс. ₽.</p>
+      </div>
+      <div class="case">
+        <div class="case-head">
+          <div class="case-name">Дарья Занько <span>точка А: 20–30 тыс. ₽</span></div>
+          <div class="case-num">150 000 ₽</div>
+        </div>
+        <p>С дохода 20–30 тыс. ₽ на услугах трафика выросла до 150 тыс. ₽ на Директе; всё настроила
+          с первого раза на полученных знаниях.</p>
+      </div>
+    </div>
+    <div class="note">Из крупных клиентов за рекламой к автору обращались Андрей Курпатов, Михаил
+      Дашкиев, Михаил Гребенюк и др. Бонусные спикеры курса — практики с бюджетами в десятки
+      миллионов рублей в год.</div>
+
+    <!-- 15 -->
+    <h2 id="objections"><span class="num">15</span>Три возражения<a class="anchor" href="#objections">#</a></h2>
+    <h3>«Я новичок, мне будет сложно»</h3>
+    <p>Проблема новичков не в сложности Директа, а в том, что рынок учит их через набор кнопок и
+      шаблонов. Когда понимаешь, как алгоритм принимает решения и как связано поведение
+      пользователей с результатом, работать становится понятнее и приятнее. Уроки «куда нажать»
+      тоже есть, но с объяснением логики.</p>
+    <h3>«У меня уже есть опыт, я проходил курсы»</h3>
+    <p>Большинство курсов учат, как нажимать кнопки и что нового появилось. Но рынок изменился:
+      главный навык теперь — не настройка, а <strong>понимание</strong>. Именно поэтому специалисты
+      проходят 5–6 курсов и всё равно не понимают, почему вчера работало, а сегодня всё умерло.</p>
+    <h3>«А Яндекс не умрёт? Всё будут делать роботы»</h3>
+    <p>Так говорят уже 10 лет. Запустить кампанию сегодня может любой через упрощённый интерфейс —
+      но алгоритмы не понимают бизнес, психологию аудитории и то, на что нужно оптимизироваться.
+      Поэтому сильные специалисты становятся только ценнее.</p>
+
+    <!-- 16 -->
+    <h2 id="summary"><span class="num">16</span>Итог<a class="anchor" href="#summary">#</a></h2>
+    <ol class="steps">
+      <li><b>Реклама показывается всем</b><span>Ключи и объявление — лишь стартовая подсказка;
+        дальше алгоритм ищет аудиторию сам.</span></li>
+      <li><b>Объявление создаёт аудиторию</b><span>Хотите другую аудиторию — делайте радикально
+        другое объявление и фильтруйте лишних.</span></li>
+      <li><b>Алгоритм гонится за объёмом</b><span>Он масштабирует там, где сильнее сигналы и больше
+        прогнозируемый объём, а не где дешевле лид.</span></li>
+      <li><b>Ручная оптимизация маскирует проблему</b><span>Отключения «дорогих» сегментов и
+        ограничение ставки чаще удваивают цену заявки.</span></li>
+      <li><b>Оптимизируйте поиск, тестируйте гипотезы в РСЯ</b><span>Новые гипотезы вместо
+        бесконечной починки старых кампаний.</span></li>
+      <li><b>Алгоритм ничего не сливает сам</b><span>Он работает только с вашими сигналами —
+        управляйте ими осознанно.</span></li>
+    </ol>
+    <div class="callout">
+      <span class="k">Главная мысль вебинара</span>
+      <p>Многие месяцами не могут выйти из слива бюджета, потому что аккаунт уже
+        <strong>обучился на мусорный трафик</strong> — и часто мы делаем это сами, даже когда
+        технически всё настроено правильно. Лечится это не кнопками, а пониманием механики.</p>
+    </div>
+
+    <hr class="div">
+    <footer>
+      <p>Это текстовый конспект вебинара <b>«Яндекс.Директ в 2026 работает не так, как думает
+        большинство специалистов»</b>. Транскрибация переработана в связную статью; смысл, факты,
+        цифры и кейсы сохранены, продающий блок приведён нейтрально.
+        <a href="https://www.youtube.com/watch?v=JWF0lt4QK2k" target="_blank" rel="noopener">Оригинал на YouTube</a>.</p>
+      <p><a href="../index.html">← Вернуться ко всем конспектам</a></p>
+    </footer>
+  </article>
+  </main>
+</div>
+
+<button id="totop" aria-label="Наверх" title="Наверх">↑</button>
+
+<script>
+(function(){
+  var root=document.documentElement;
+  // theme
+  var saved=null;
+  try{saved=localStorage.getItem('yt-theme');}catch(e){}
+  if(saved){root.setAttribute('data-theme',saved);}
+  else if(window.matchMedia&&window.matchMedia('(prefers-color-scheme:dark)').matches){
+    root.setAttribute('data-theme','dark');
+  }
+  var btn=document.getElementById('theme');
+  btn.addEventListener('click',function(){
+    var cur=root.getAttribute('data-theme')==='dark'?'dark':'light';
+    var next=cur==='dark'?'light':'dark';
+    root.setAttribute('data-theme',next);
+    try{localStorage.setItem('yt-theme',next);}catch(e){}
+  });
+
+  // progress bar + back to top
+  var bar=document.getElementById('progress');
+  var top=document.getElementById('totop');
+  function onScroll(){
+    var h=document.documentElement;
+    var max=h.scrollHeight-h.clientHeight;
+    var p=max>0?(h.scrollTop/max)*100:0;
+    bar.style.width=p+'%';
+    if(h.scrollTop>600){top.classList.add('show');}else{top.classList.remove('show');}
+  }
+  window.addEventListener('scroll',onScroll,{passive:true});
+  onScroll();
+  top.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+
+  // scroll-spy
+  var links=Array.prototype.slice.call(document.querySelectorAll('.toc a'));
+  var map={};
+  links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a;});
+  var heads=Array.prototype.slice.call(document.querySelectorAll('main h2[id]'));
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(en.isIntersecting){
+          links.forEach(function(a){a.classList.remove('active');});
+          var a=map[en.target.id];
+          if(a)a.classList.add('active');
+        }
+      });
+    },{rootMargin:'-15% 0px -75% 0px',threshold:0});
+    heads.forEach(function(h){io.observe(h);});
+  }
+
+  // close mobile toc on link click
+  var md=document.querySelector('.toc-mobile');
+  if(md){md.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click',function(){md.removeAttribute('open');});
+  });}
+})();
+</script>
+</body>
+</html>

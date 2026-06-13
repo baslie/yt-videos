@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Как маркетологу выйти на 300 000 ₽ через личный бренд — конспект урока</title>
+<meta name="description" content="Конспект урока Жени Тохтарова: как трафикологу и маркетологу вырасти со 100 до 300+ тыс. ₽ через упаковку себя, трафик на свой телеграм-канал, работу с тёплой базой, отчётность и делегирование.">
+<style>
+  :root{
+    --bg:#faf9f7;
+    --surface:#ffffff;
+    --surface-2:#f3f1ec;
+    --text:#262420;
+    --text-soft:#5c574f;
+    --text-faint:#8a8378;
+    --border:#e7e3db;
+    --accent:#9a6a3c;        /* тёплый приглушённый терракот/охра */
+    --accent-soft:#f0e7dc;
+    --accent-ink:#7a5128;
+    --ok:#3f7d52;
+    --shadow:0 1px 2px rgba(40,33,22,.04), 0 6px 24px rgba(40,33,22,.05);
+    --radius:14px;
+    --maxread:720px;
+    --font:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+    --serif:"Georgia","Times New Roman",serif;
+  }
+  html[data-theme="dark"]{
+    --bg:#17150f;
+    --surface:#201d16;
+    --surface-2:#262219;
+    --text:#ece7dd;
+    --text-soft:#b9b2a4;
+    --text-faint:#8b8473;
+    --border:#332f25;
+    --accent:#d3a36b;
+    --accent-soft:#2c2519;
+    --accent-ink:#e6c294;
+    --ok:#7bbf8c;
+    --shadow:0 1px 2px rgba(0,0,0,.3), 0 8px 30px rgba(0,0,0,.35);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--font);
+    font-size:18px;
+    line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+  }
+
+  /* progress bar */
+  #progress{
+    position:fixed;top:0;left:0;height:3px;width:0;
+    background:linear-gradient(90deg,var(--accent),var(--accent-ink));
+    z-index:60;transition:width .12s ease-out;
+  }
+
+  /* topbar */
+  .topbar{
+    position:sticky;top:0;z-index:50;
+    background:color-mix(in srgb,var(--bg) 86%,transparent);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--border);
+  }
+  .topbar-inner{
+    max-width:1180px;margin:0 auto;padding:10px 20px;
+    display:flex;align-items:center;justify-content:space-between;gap:16px;
+  }
+  .brand{display:flex;align-items:center;gap:10px;font-weight:600;font-size:15px;color:var(--text)}
+  .brand a{color:inherit;text-decoration:none}
+  .brand .dot{width:9px;height:9px;border-radius:50%;background:var(--accent)}
+  .back{color:var(--text-soft);text-decoration:none;font-size:14px}
+  .back:hover{color:var(--accent)}
+  .theme-toggle{
+    border:1px solid var(--border);background:var(--surface);color:var(--text-soft);
+    width:38px;height:38px;border-radius:10px;cursor:pointer;font-size:17px;
+    display:inline-flex;align-items:center;justify-content:center;transition:.15s;
+  }
+  .theme-toggle:hover{color:var(--accent);border-color:var(--accent)}
+
+  /* layout */
+  .wrap{max-width:1180px;margin:0 auto;padding:0 20px;
+    display:grid;grid-template-columns:260px minmax(0,1fr);gap:48px;}
+  aside{position:sticky;top:64px;align-self:start;height:calc(100vh - 80px);
+    overflow-y:auto;padding:28px 4px 40px;}
+  aside .toc-title{font-size:12px;letter-spacing:.08em;text-transform:uppercase;
+    color:var(--text-faint);margin:0 0 14px;font-weight:700;}
+  .toc{list-style:none;margin:0;padding:0;border-left:2px solid var(--border)}
+  .toc li{margin:0}
+  .toc a{display:block;padding:6px 0 6px 16px;margin-left:-2px;
+    border-left:2px solid transparent;color:var(--text-soft);
+    text-decoration:none;font-size:14.5px;line-height:1.4;transition:.15s;}
+  .toc a:hover{color:var(--accent)}
+  .toc a.active{color:var(--accent-ink);border-left-color:var(--accent);font-weight:600}
+
+  main{min-width:0;padding:8px 0 96px}
+  article{max-width:var(--maxread)}
+
+  /* hero */
+  .hero{padding:40px 0 8px}
+  .eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;
+    color:var(--accent-ink);background:var(--accent-soft);
+    padding:5px 12px;border-radius:999px;margin-bottom:18px}
+  h1{font-size:clamp(28px,5vw,42px);line-height:1.15;margin:.1em 0 .35em;
+    letter-spacing:-.01em;font-weight:800}
+  .lede{font-size:clamp(18px,2.4vw,21px);color:var(--text-soft);line-height:1.55;margin:0 0 24px}
+  .meta-row{display:flex;flex-wrap:wrap;gap:8px 20px;align-items:center;
+    padding:16px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);
+    font-size:14.5px;color:var(--text-soft)}
+  .meta-row b{color:var(--text)}
+  .meta-row .sep{color:var(--border)}
+
+  /* video embed + source */
+  .video{margin:24px 0 8px;border-radius:var(--radius);overflow:hidden;
+    border:1px solid var(--border);box-shadow:var(--shadow);background:#000}
+  .video iframe{display:block;width:100%;aspect-ratio:16/9;border:0}
+  .source-row{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center;
+    margin:14px 0 4px;font-size:14.5px}
+  .source-row a.src-btn{display:inline-flex;align-items:center;gap:8px;
+    text-decoration:none;color:var(--accent-ink);background:var(--accent-soft);
+    border:1px solid color-mix(in srgb,var(--accent) 25%,var(--border));
+    padding:7px 14px;border-radius:999px;font-weight:600;transition:.15s}
+  .source-row a.src-btn:hover{border-color:var(--accent)}
+
+  /* mobile toc */
+  .toc-mobile{display:none;margin:24px 0 8px;border:1px solid var(--border);
+    border-radius:12px;background:var(--surface);overflow:hidden}
+  .toc-mobile summary{cursor:pointer;padding:14px 18px;font-weight:600;list-style:none;
+    display:flex;align-items:center;justify-content:space-between}
+  .toc-mobile summary::-webkit-details-marker{display:none}
+  .toc-mobile summary::after{content:"▾";color:var(--text-faint);transition:.2s}
+  .toc-mobile[open] summary::after{transform:rotate(180deg)}
+  .toc-mobile ol{margin:0;padding:4px 18px 18px 36px;color:var(--text-soft)}
+  .toc-mobile a{color:var(--text-soft);text-decoration:none}
+  .toc-mobile a:hover{color:var(--accent)}
+
+  /* typography */
+  h2{font-size:clamp(23px,3.4vw,30px);line-height:1.25;margin:64px 0 4px;
+    letter-spacing:-.01em;font-weight:750;scroll-margin-top:80px;position:relative}
+  h2 .num{display:block;font-size:13px;font-weight:700;letter-spacing:.08em;
+    text-transform:uppercase;color:var(--accent);margin-bottom:8px}
+  h3{font-size:21px;margin:38px 0 6px;font-weight:700;scroll-margin-top:80px}
+  .anchor{color:var(--text-faint);text-decoration:none;opacity:0;margin-left:8px;
+    font-weight:400;transition:.15s}
+  h2:hover .anchor,h3:hover .anchor{opacity:1}
+  p{margin:16px 0}
+  article a{color:var(--accent-ink);text-decoration:underline;text-underline-offset:2px;text-decoration-thickness:1px}
+  strong{font-weight:700;color:var(--text)}
+  hr.div{border:0;border-top:1px solid var(--border);margin:56px 0}
+
+  ul,ol{padding-left:1.3em;margin:16px 0}
+  li{margin:8px 0}
+  ul.clean{list-style:none;padding-left:0}
+  ul.clean li{position:relative;padding-left:30px}
+  ul.clean li::before{content:"";position:absolute;left:4px;top:.62em;width:8px;height:8px;
+    border-radius:50%;background:var(--accent)}
+  ul.check li::before,ul.cross li::before{display:none}
+  ul.check li,ul.cross li{position:relative;padding-left:32px;list-style:none}
+  ul.check,ul.cross{padding-left:0}
+  ul.check li::after{content:"✓";position:absolute;left:2px;top:0;color:var(--ok);font-weight:800}
+  ul.cross li::after{content:"✕";position:absolute;left:2px;top:0;color:#c2694e;font-weight:800}
+
+  /* callout */
+  .callout{margin:30px 0;padding:22px 24px 22px 26px;border-radius:var(--radius);
+    background:var(--accent-soft);border:1px solid color-mix(in srgb,var(--accent) 25%,var(--border));
+    position:relative}
+  .callout .k{display:block;font-size:12px;font-weight:700;letter-spacing:.08em;
+    text-transform:uppercase;color:var(--accent-ink);margin-bottom:8px}
+  .callout p{margin:0;font-size:19px;line-height:1.5;color:var(--text)}
+  .callout p+p{margin-top:10px;font-size:16px;color:var(--text-soft)}
+
+  .note{margin:26px 0;padding:18px 20px;border-left:3px solid var(--accent);
+    background:var(--surface-2);border-radius:0 10px 10px 0;font-size:16.5px;color:var(--text-soft)}
+  .note b{color:var(--text)}
+
+  /* case cards */
+  .cases{display:grid;gap:18px;margin:28px 0}
+  .case{border:1px solid var(--border);border-radius:var(--radius);background:var(--surface);
+    box-shadow:var(--shadow);padding:22px 24px}
+  .case-head{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:8px}
+  .case-name{font-weight:750;font-size:18px}
+  .case-name span{display:block;font-weight:500;font-size:14px;color:var(--text-faint);margin-top:2px}
+  .case-num{font-size:26px;font-weight:800;color:var(--accent-ink);white-space:nowrap}
+  .case p{margin:12px 0 0;font-size:16px;color:var(--text-soft)}
+
+  /* role cards */
+  .roles{display:grid;gap:20px;margin:28px 0}
+  .role{border:1px solid var(--border);border-radius:var(--radius);background:var(--surface);
+    box-shadow:var(--shadow);overflow:hidden}
+  .role-top{padding:20px 24px;background:var(--surface-2);border-bottom:1px solid var(--border)}
+  .role-top h3{margin:0;font-size:20px;scroll-margin-top:0}
+  .role-top .tag{font-size:13.5px;color:var(--text-soft);margin-top:4px}
+  .role-body{padding:18px 24px 22px}
+  .role-body .lbl{font-size:12px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;
+    color:var(--text-faint);margin:14px 0 6px}
+  .role-body .lbl:first-child{margin-top:0}
+  .role-body p{margin:8px 0;font-size:15.5px}
+  .money{display:inline-block;background:var(--accent-soft);color:var(--accent-ink);
+    font-weight:700;padding:2px 10px;border-radius:8px;font-size:14px}
+
+  /* example block (механика «как это ломается») */
+  .mech{display:grid;gap:16px;margin:28px 0}
+  .mech-item{border:1px solid var(--border);border-radius:var(--radius);background:var(--surface);
+    box-shadow:var(--shadow);overflow:hidden}
+  .mech-top{padding:16px 22px;background:var(--surface-2);border-bottom:1px solid var(--border);
+    font-weight:700;font-size:16.5px}
+  .mech-top .tag{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.05em;
+    text-transform:uppercase;color:var(--accent-ink);background:var(--accent-soft);
+    padding:2px 9px;border-radius:7px;margin-right:10px;vertical-align:middle}
+  .mech-body{padding:16px 22px 20px}
+  .mech-body p{margin:8px 0;font-size:15.5px;color:var(--text-soft)}
+  .mech-body p:first-child{margin-top:0}
+  .mech-body .res{margin-top:12px;font-size:15px;color:var(--text);font-weight:600}
+  .mech-body .res::before{content:"→ ";color:#c2694e;font-weight:800}
+
+  /* steps */
+  .steps{counter-reset:s;list-style:none;padding:0;margin:28px 0;display:grid;gap:14px}
+  .steps li{counter-increment:s;position:relative;padding:18px 20px 18px 64px;
+    border:1px solid var(--border);border-radius:12px;background:var(--surface);box-shadow:var(--shadow)}
+  .steps li::before{content:counter(s);position:absolute;left:18px;top:16px;
+    width:32px;height:32px;border-radius:9px;background:var(--accent);color:#fff;
+    display:flex;align-items:center;justify-content:center;font-weight:800;font-size:15px}
+  .steps li b{display:block;margin-bottom:2px}
+  .steps li span{color:var(--text-soft);font-size:15.5px}
+
+  /* price table */
+  .price{width:100%;border-collapse:collapse;margin:24px 0;font-size:16px;
+    border:1px solid var(--border);border-radius:12px;overflow:hidden}
+  .price th,.price td{text-align:left;padding:13px 18px;border-bottom:1px solid var(--border);vertical-align:top}
+  .price thead th{background:var(--surface-2);font-size:13px;letter-spacing:.04em;
+    text-transform:uppercase;color:var(--text-faint)}
+  .price tbody tr:last-child td{border-bottom:0}
+  .price td.amt{font-weight:750;color:var(--accent-ink);white-space:nowrap}
+  .price td.amt small{display:block;font-weight:500;color:var(--text-faint);font-size:12.5px;margin-top:3px}
+
+  /* stat strip */
+  .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:28px 0}
+  .stat{padding:20px;border:1px solid var(--border);border-radius:12px;background:var(--surface);text-align:center}
+  .stat .big{font-size:28px;font-weight:800;color:var(--accent-ink);line-height:1.1}
+  .stat .cap{font-size:13.5px;color:var(--text-soft);margin-top:6px}
+
+  /* back to top */
+  #totop{position:fixed;right:22px;bottom:22px;width:46px;height:46px;border-radius:50%;
+    border:1px solid var(--border);background:var(--surface);color:var(--accent);
+    box-shadow:var(--shadow);cursor:pointer;font-size:20px;opacity:0;pointer-events:none;
+    transition:.2s;z-index:40}
+  #totop.show{opacity:1;pointer-events:auto}
+  #totop:hover{border-color:var(--accent)}
+
+  footer{border-top:1px solid var(--border);margin-top:40px;padding:30px 0 60px;
+    color:var(--text-faint);font-size:14.5px}
+  footer a{color:var(--text-soft)}
+
+  @media (max-width:920px){
+    .wrap{grid-template-columns:1fr;gap:0}
+    aside{display:none}
+    .toc-mobile{display:block}
+    body{font-size:17px}
+    main{padding-top:0}
+  }
+  @media (max-width:560px){
+    .stats{grid-template-columns:1fr}
+    .topbar-inner{padding:10px 16px}
+    .wrap{padding:0 16px}
+    .case-head{flex-direction:column;gap:4px}
+  }
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+</style>
+</head>
+<body>
+<div id="progress"></div>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="brand"><span class="dot"></span><a href="../index.html">yt-videos</a>
+      <span class="sep" style="color:var(--border)">/</span>
+      <a class="back" href="../index.html">← ко всем конспектам</a>
+    </div>
+    <button class="theme-toggle" id="theme" aria-label="Переключить тему" title="Светлая / тёмная тема">◐</button>
+  </div>
+</div>
+
+<div class="wrap">
+  <aside>
+    <p class="toc-title">Содержание</p>
+    <ul class="toc" id="toc">
+      <li><a href="#about">О чём этот урок</a></li>
+      <li><a href="#author">Кто ведёт и про «инфо-цыганство»</a></li>
+      <li><a href="#packaging">Упаковка: довести до ключевого этапа</a></li>
+      <li><a href="#confidence">Упаковка даёт уверенность</a></li>
+      <li><a href="#nda">Кейсы и NDA</a></li>
+      <li><a href="#packaging-fail">Почему упаковка не сработает</a></li>
+      <li><a href="#traffic">Простой трафик на себя</a></li>
+      <li><a href="#content">Что такое правильный контент</a></li>
+      <li><a href="#budget">Сколько нужно денег</a></li>
+      <li><a href="#traffic-fail">Почему трафик не сработает</a></li>
+      <li><a href="#warm-base">Работа с тёплой базой</a></li>
+      <li><a href="#reports">Отчётность и удержание</a></li>
+      <li><a href="#delegation">Делегирование</a></li>
+      <li><a href="#realistic">Реалистичный результат: ×2</a></li>
+      <li><a href="#product">Программа автора</a></li>
+      <li><a href="#summary">Итог</a></li>
+    </ul>
+  </aside>
+
+  <main>
+  <article>
+    <header class="hero">
+      <span class="eyebrow">Конспект урока · Личный бренд и трафик на себя</span>
+      <h1>Как маркетологу выйти на 300 000 ₽ через личный бренд</h1>
+      <p class="lede">Трафиколог Женя Тохтаров разбирает систему, которая выводит специалиста
+        со 100 до 300+ тыс. ₽ в месяц: упаковать себя, вести трафик на свой телеграм-канал,
+        работать с тёплой базой, удерживать клиентов отчётностью и грамотно делегировать.</p>
+      <div class="meta-row">
+        <span>Спикер: <b>Женя Тохтаров</b>, практикующий трафиколог (с 2014–2015)</span>
+        <span class="sep">·</span>
+        <span>Источник: <b>YouTube</b></span>
+        <span class="sep">·</span>
+        <span>~50 минут видео · 14 минут чтения</span>
+      </div>
+
+      <div class="video">
+        <iframe src="https://www.youtube.com/embed/qQCYMbMBedU"
+          title="Как маркетологу выйти на 300 000 ₽ через личный бренд — видео на YouTube" loading="lazy"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
+      </div>
+      <div class="source-row">
+        <a class="src-btn" href="https://www.youtube.com/watch?v=qQCYMbMBedU" target="_blank" rel="noopener">▶ Смотреть оригинал на YouTube</a>
+      </div>
+
+      <details class="toc-mobile">
+        <summary>Содержание</summary>
+        <ol>
+      <li><a href="#about">О чём этот урок</a></li>
+      <li><a href="#author">Кто ведёт и про «инфо-цыганство»</a></li>
+      <li><a href="#packaging">Упаковка: довести до ключевого этапа</a></li>
+      <li><a href="#confidence">Упаковка даёт уверенность</a></li>
+      <li><a href="#nda">Кейсы и NDA</a></li>
+      <li><a href="#packaging-fail">Почему упаковка не сработает</a></li>
+      <li><a href="#traffic">Простой трафик на себя</a></li>
+      <li><a href="#content">Что такое правильный контент</a></li>
+      <li><a href="#budget">Сколько нужно денег</a></li>
+      <li><a href="#traffic-fail">Почему трафик не сработает</a></li>
+      <li><a href="#warm-base">Работа с тёплой базой</a></li>
+      <li><a href="#reports">Отчётность и удержание</a></li>
+      <li><a href="#delegation">Делегирование</a></li>
+      <li><a href="#realistic">Реалистичный результат: ×2</a></li>
+      <li><a href="#product">Программа автора</a></li>
+      <li><a href="#summary">Итог</a></li>
+        </ol>
+      </details>
+    </header>
+
+    <!-- 1 -->
+    <h2 id="about"><span class="num">01</span>О чём этот урок<a class="anchor" href="#about">#</a></h2>
+    <p>Урок о том, как маркетологу, трафикологу или продюсеру вырасти со <strong>100 до 300 тысяч ₽
+      в месяц</strong> на услугах трафика. Тот же подход работает и на следующих ступенях — с 300 до 500
+      и с 500 до 800 тыс. ₽; всё, что выше, упирается уже в другое (в основном в делегирование).</p>
+    <p>Центральная идея — масштабирование дохода через <strong>личный бренд и трафик на себя</strong>.
+      Не через сложные воронки и «секретные связки», а через простую систему: упаковать себя как
+      специалиста, наладить поток контента и довести заинтересованного человека до обращения.</p>
+    <div class="callout">
+      <span class="k">Что разбираем</span>
+      <p>Как упаковать себя так, чтобы горячие клиенты приходили сами, а понятие «холодный лид» исчезло.</p>
+      <p>Плюс: простой способ вести трафик на себя, общение с новыми и старыми клиентами и делегирование,
+        которое освобождает до 4 часов в день.</p>
+    </div>
+
+    <!-- 2 -->
+    <h2 id="author"><span class="num">02</span>Кто ведёт и про «инфо-цыганство»<a class="anchor" href="#author">#</a></h2>
+    <p>Автор — Женя Тохтаров, практикующий специалист по трафику с 2014–2015 года. Среди клиентов
+      за последние годы: телеграм-канал Михаила Гребенюка, продукты Айдара Киева и Ирины Хакамады,
+      университет психологии Андрея Курпатова, трафик на автошколы Тимура Кадырова.</p>
+    <div class="stats">
+      <div class="stat"><div class="big">16 млн ₽/мес</div><div class="cap">личный рекорд бюджета на один рекламный аккаунт</div></div>
+      <div class="stat"><div class="big">2 + 1</div><div class="cap">директолога и менеджер в команде</div></div>
+      <div class="stat"><div class="big">10 лет</div><div class="cap">в трафике — от 10-часового дня до работы «без себя»</div></div>
+    </div>
+    <p>Главный тезис о самом авторе: система настроена так, что проекты работают без его постоянного
+      участия — оповещения отключены, а всё «адекватно работает». Это и есть цель, к которой ведёт урок.</p>
+    <div class="note">Автор честно называет формат «инфо-цыганским вебинаром», но обещает дать рабочие идеи,
+      а не «секретную схему, после которой жизнь сразу наладится». Главная оговорка: <b>метод работает,
+      но только если по нему работать</b>.</div>
+    <p>Отдельно подчёркивается, почему «самостоятельно не получится»: на бесплатные разборы люди приходят,
+      кивают и ничего не делают — а значит, и результата не получают. Дело не в нехватке информации,
+      а в её применении.</p>
+
+    <!-- 3 -->
+    <h2 id="packaging"><span class="num">03</span>Упаковка: довести клиента до ключевого этапа воронки<a class="anchor" href="#packaging">#</a></h2>
+    <p>Когда у специалиста мало клиентов, кажется, что решение — привлечь новых: запустить ещё одну
+      воронку, ещё одну систему. Но если вы работаете хотя бы год, чаще <strong>новые не нужны</strong> —
+      нужно правильно оформить услуги, вести контент и показывать его тёплой базе.</p>
+    <p>Как вас находят клиенты? Увидели случайно в чате или кто-то порекомендовал: «вот есть Женя,
+      напиши ему». Клиент в раздумьях заходит на ваш аккаунт — и почти всегда это телеграм. Вы ведёте
+      рекламу на чужой бизнес и ожидаете, что посадочная упакована: кейсы, цифры, результаты. А свой
+      телеграм-аккаунт оставляете пустым.</p>
+    <div class="callout">
+      <span class="k">Ключевая мысль</span>
+      <p>«Клиент выбрал меня и написал» — это ключевой этап воронки. Ваша задача — довести человека
+        от «заинтересовался» до «написал».</p>
+      <p>Посмотрите на свою самозанятость так же, как на бизнесы клиентов, которых вы продвигаете.</p>
+    </div>
+    <p>«У меня всё на сарафанке» — это не отговорка, а как раз место для работы. Из всех, кто о вас
+      услышал и кому вас порекомендовали, реально пишет лишь малая часть: остальные недостаточно
+      поверили рекомендации. Доведение от «заинтересовался» до «написал» вы фактически делегируете
+      тому, кто вас рекомендует, — вместо того чтобы помочь ему упакованным аккаунтом.</p>
+
+    <!-- 4 -->
+    <h2 id="confidence"><span class="num">04</span>Упаковка даёт уверенность в себе и услугах<a class="anchor" href="#confidence">#</a></h2>
+    <p>Есть нетривиальный эффект, в который автор сам сначала не верил. Когда вы самостоятельно
+      вытаскиваете из себя результаты и цифры — то, что и называется упаковкой, — вы <strong>сами
+      начинаете больше в себя верить</strong>. Уходит ощущение «результаты средние, как у всех»
+      и страх назвать цену выше.</p>
+    <p>Когда вы описываете услугу заранее, вы наконец понимаете, что продаёте. Одно дело — продавать
+      абстрактную «консультацию», другое — заранее расписать, что в неё входит: какие вопросы решаются,
+      как вы готовитесь до, что разбираете во время, какой результат будет после. Так продавать
+      самому легче и увереннее.</p>
+    <div class="callout">
+      <span class="k">Правило</span>
+      <p>То, чего не написано, — не существует.</p>
+      <p>Пока ваши результаты не описаны в открытом доступе, для клиента это всего лишь ваши фантазии,
+        о которых знаете только вы и ваша мама.</p>
+    </div>
+    <p>На практике после правильной упаковки и систематического контента активируется «сарафан» —
+      работа с тёплой аудиторией. Люди начинают писать после конкретных постов и кейсов: кто-то
+      посмотрел сторис, кому-то напомнил пост. Так бывает у тех, кто работает уже год плюс и у кого
+      накопилась хоть какая-то база.</p>
+    <div class="note">Типичный пример из урока: специалист публиковал результаты — и проект ему предложил
+      коллега из агентства, где он работает. До этого он «был просто директологом», а показанные посты
+      и кейсы сделали его в глазах окружения экспертом.</div>
+
+    <!-- 5 -->
+    <h2 id="nda"><span class="num">05</span>Кейсы и NDA<a class="anchor" href="#nda">#</a></h2>
+    <p>Частое возражение: «У меня всё под NDA, кейсы писать нельзя». Решение из урока: сохранять суть
+      и порядок цифр, но менять опознавательные детали.</p>
+    <div class="note">У специалиста был кейс по школе испанского: потратил 3 млн ₽, заработал 9 млн ₽.
+      Решение — описать его как «школу иностранного языка, но не английского», с цифрами того же порядка.
+      <b>NDA запрещает раскрывать то, что индивидуально указывает на клиента</b>, а не сам факт результата.</div>
+    <p>Второе возражение: «Кейс любой может нарисовать, тем более нейросетями; мои кейсы агентские,
+      выдающихся результатов нет». Возражение справедливое — но рынок работает именно так. Пока вы
+      скромно делаете хорошую работу и о себе не заявляете, рядом кто-то умеет правильно подать любой
+      кейс, вытащить нужные цифры и за двумя проектами выглядеть опытным. Клиент в итоге выбирает того,
+      кто о себе рассказал.</p>
+
+    <!-- 6 -->
+    <h2 id="packaging-fail"><span class="num">06</span>Почему упаковка может не сработать<a class="anchor" href="#packaging-fail">#</a></h2>
+    <p>Типичные ошибки на этом шаге:</p>
+    <ul class="cross">
+      <li>контент пишется как для специалистов — с техническими словами, а не на языке клиента;</li>
+      <li>непонимание, что именно важно клиенту в конкретной ситуации;</li>
+      <li>результаты описаны неправильно, в кейсе не выделена «фишка», которая цепляет;</li>
+      <li>услуги описаны некорректно — особенно у тех, кто совмещает несколько ролей и сетей, и непонятно,
+        зачем к ним вообще обращаться.</li>
+    </ul>
+    <p>Итог при ошибках: время потрачено, посты никто не читает, услуги не продаются, ценности клиент
+      не видит — и специалист решает, что «вся эта блогерская штука не для него».</p>
+    <div class="callout">
+      <span class="k">Развилка</span>
+      <p>Не хотите ничего продавать и вести контент — это нормально: тогда идите работать в офис
+        рекламного агентства.</p>
+      <p>Но если работать по найму вы не хотите, то упаковкой и контентом придётся заняться.</p>
+    </div>
+
+    <!-- 7 -->
+    <h2 id="traffic"><span class="num">07</span>Самый простой способ вести трафик на себя<a class="anchor" href="#traffic">#</a></h2>
+    <p>Вокруг продают сложное: клик-лендинги, лидогенерацию через статьи, вечнозелёные автоворонки,
+      сегментацию, «секретные связки». Логика простая — чем сложнее и секретнее связка, тем дороже
+      по ней продать курс. На деле работает простое.</p>
+    <div class="note">Ученица Эльвина Гайнуллина приводила в своём канале цифры: на воронку (рекламу услуг)
+      потратила <b>23 000 ₽</b>, на продвижение просто своего контента в канале — <b>27 000 ₽</b>.
+      Доход с контента окупился в 4 раза, а доход с услуг не окупился вообще.</div>
+    <p>«Секретная связка», которую автор называет прямо:</p>
+    <ol class="steps">
+      <li><b>Контент в телеграм-канал</b><span>Регулярные посты со своими результатами.</span></li>
+      <li><b>Лид-магнит из вашего кейса</b><span>Полезный материал, собранный на основе реального результата.</span></li>
+      <li><b>Трафик на лид-магнит и канал</b><span>Можно вести и просто в канал — даже без лид-магнита.</span></li>
+    </ol>
+    <div class="callout">
+      <span class="k">Суть масштабирования</span>
+      <p>Создавать <strong>больше нужного контента</strong> и транслировать его на <strong>больше нужных
+        людей</strong>.</p>
+      <p>Всего два пункта — это и есть то, что автор делает последние 10 лет.</p>
+    </div>
+
+    <!-- 8 -->
+    <h2 id="content"><span class="num">08</span>Что такое правильный контент<a class="anchor" href="#content">#</a></h2>
+    <p>Правильный контент — это не «материться в постах, чтобы быть своим». Суть в том, чтобы зашивать
+      в контент <strong>маркетинговые триггеры</strong> и говорить на языке целевой аудитории.</p>
+    <ul class="clean">
+      <li>social proof, конкретные цифры и результаты;</li>
+      <li>контент под язык и боли целевой аудитории;</li>
+      <li>подведение к лёгкому ключевому этапу воронки;</li>
+      <li>триггеры ограниченности, авторитета и так далее.</li>
+    </ul>
+    <p>Это ровно то, что делают хорошие СММщики для инфобизнеса, — только специалисты почему-то не делают
+      этого для себя. При этом ничего сложного нет: один пост в неделю в готовой структуре пишется за
+      <strong>10–15 минут</strong>, а шаблоны прописаны «от и до».</p>
+
+    <!-- 9 -->
+    <h2 id="budget"><span class="num">09</span>Сколько нужно денег<a class="anchor" href="#budget">#</a></h2>
+    <p>Бюджет подбирается под комфорт: столько, что потратить на гипотезы и не переживать. У кого-то это
+      20 тыс. ₽ в месяц, у кого-то 40 или 15. Размер вторичен — <strong>важно постоянство</strong>.</p>
+    <p>Простая математика из урока:</p>
+    <div class="stats">
+      <div class="stat"><div class="big">20 000 ₽/мес</div><div class="cap">бюджет при цене подписчика 200–300 ₽</div></div>
+      <div class="stat"><div class="big">~1200</div><div class="cap">целевых подписчиков в канале за год</div></div>
+      <div class="stat"><div class="big">10–12</div><div class="cap">постоянных клиентов с чеком ~50 тыс. ₽ — «для счастья»</div></div>
+    </div>
+    <p>Это не случайные подписчики, лайкающие фото, а люди, которые знают, чем вы занимаетесь, и видели
+      ваши кейсы. Вопрос риторический: неужели среди 1200 таких людей не найдётся 10–12 постоянных
+      клиентов?</p>
+    <div class="callout">
+      <span class="k">Как смотреть на канал</span>
+      <p>Телеграм-канал — это не блог, а посадочная страница и конвертер, который умеет аккумулировать
+        аудиторию.</p>
+      <p>Блогером быть не нужно: достаточно контент-плана на 5–10 постов, упакованного в воронку, плюс
+        «раз в недельку показать, что вы живы».</p>
+    </div>
+
+    <!-- 10 -->
+    <h2 id="traffic-fail"><span class="num">10</span>Почему трафик может не сработать<a class="anchor" href="#traffic-fail">#</a></h2>
+    <p>Главная опасность — ошибку не видно сразу. Деньги тратятся «в долгую», и кажется, что всё идёт бодро.</p>
+    <div class="mech">
+      <div class="mech-item">
+        <div class="mech-top"><span class="tag">Аудитория</span>Привлекаете не тех</div>
+        <div class="mech-body">
+          <p>В 80% случаев на контент и лид-магнит приходят специалисты, а не клиенты.</p>
+          <p>В 80% случаев выбран не тот лид-магнит, а его название не фильтрует аудиторию.</p>
+          <p class="res">Канал растёт, а целевых обращений нет.</p>
+        </div>
+      </div>
+      <div class="mech-item">
+        <div class="mech-top"><span class="tag">Настройка</span>Воронка и реклама «не туда»</div>
+        <div class="mech-body">
+          <p>Воронка прописана коряво, реклама настроена на не ту аудиторию.</p>
+          <p>Месяц за месяцем по 20 тыс. ₽ уходят, и кажется, что «дёшево и работает в долгую».</p>
+          <p class="res">К 4-му месяцу — вывод «посоветовали ерунду» и отключение.</p>
+        </div>
+      </div>
+    </div>
+    <p>Цена ошибки: специалист остаётся в той же точке, но теряет <strong>2–3 месяца времени и 40–60 тыс. ₽
+      рекламного бюджета</strong>.</p>
+
+    <!-- 11 -->
+    <h2 id="warm-base"><span class="num">11</span>Работа с тёплой базой<a class="anchor" href="#warm-base">#</a></h2>
+    <p>Многие ждут волшебную кнопку — лидогенерацию, воронку — и забивают на тёплую базу. Но услуги
+      продаются точечно: для 10 клиентов не нужен масштабный запуск на супер-автоворонку. Тёплая база —
+      это не только бывшие клиенты, а <strong>все, кто хоть раз читал ваш контент, смотрел сторис или
+      видео, кому вас рекомендовали</strong>.</p>
+    <div class="callout">
+      <span class="k">Откуда приходят крупные клиенты</span>
+      <p>Не «по знакомству и за рюмкой», а потому что полгода назад вы попались человеку на глаза со своим
+        каналом, контентом и лид-магнитом — он подписался, и со временем это сработало.</p>
+      <p>При таком подходе понятия «холодный лид» не существует: люди пишут уже с готовностью — «цифры
+        видел, результаты видел, давай работать».</p>
+    </div>
+    <p>Несколько кейсов из урока показывают одну механику — рост чека и LTV после того, как человек начал
+      вести контент сам:</p>
+    <div class="cases">
+      <div class="case">
+        <div class="case-head">
+          <div class="case-name">Игорь Голубев <span>чек за две недели программы</span></div>
+          <div class="case-num">50 → 150 тыс. ₽</div>
+        </div>
+        <p>Закрыл клиента на консалт за 150 тыс. ₽ на два месяца — в три раза дороже, чем продавал эту же
+          услугу раньше. Сработали работа с контентом и описанием услуг.</p>
+      </div>
+      <div class="case">
+        <div class="case-head">
+          <div class="case-name">Игорь Волков <span>после сторис о результатах</span></div>
+          <div class="case-num">35 → 80 тыс. ₽/мес</div>
+        </div>
+        <p>Выкладывал сторис о результатах по Яндексу — их увидел руководитель проекта и сам предложил
+          поднять чек и дать больше свободы. Работы при этом больше не стало.</p>
+      </div>
+      <div class="case">
+        <div class="case-head">
+          <div class="case-name">Илья Самордин <span>18 клиентов, 5 — по 15 тыс. ₽</span></div>
+          <div class="case-num">+60–65 тыс. ₽</div>
+        </div>
+        <p>После того как начал вести контент, сделал таблицу аргументов по каждому проекту и начал
+          поднимать средний чек старым клиентам, которых раньше «вёл и ничего не делал».</p>
+      </div>
+    </div>
+    <p>Общий вывод: ведение контента — это soft skill, который даёт уверенность в своих результатах
+      и понимание, что и за сколько продавать. Именно это решает, а не «волшебная» лидогенерация.</p>
+
+    <!-- 12 -->
+    <h2 id="reports"><span class="num">12</span>Отчётность и удержание клиентов<a class="anchor" href="#reports">#</a></h2>
+    <p>Рост LTV держится на двух факторах: <strong>улучшении результатов</strong> и <strong>улучшении
+      сервиса</strong>. Сервис — это почти всегда ваша отчётность: скорость ответов, общение и качество
+      отчётов. Автор шутит: чем хуже результат у клиента, тем красивее должен быть отчёт.</p>
+    <p>Хороший отчёт содержит:</p>
+    <ul class="check">
+      <li>что было сделано, для чего и что это дало;</li>
+      <li>выявление проблемы конкретного периода;</li>
+      <li>план — что вы будете с этой проблемой делать дальше.</li>
+    </ul>
+    <p>Зачем это нужно, если «и так всё видно по цифрам»? Клиент привыкает оценивать вас по цифрам, но лид
+      не дешевеет вечно, оптимизация не бесконечна — рано или поздно цена вырастет или гипотеза не
+      сработает. Без отчётности вам будет нечем защититься; с ней клиент понимает, <strong>почему</strong>
+      что-то произошло и что вы знаете, что делать.</p>
+    <div class="note">Итог периода критичен ещё и потому, что у клиента может смениться руководитель отдела
+      или маркетолог. Новый человек посмотрит на последние цифры — и без истории помесячных итогов может
+      уволить вас. А согласованный план защищает от претензии «мы зря потратили 20 тысяч»: <b>то, чего
+      не написано, не существует</b>; пересматривать ваши созвоны никто не будет.</div>
+    <p>Где ломается рост LTV: специалист продаёт не свои услуги, а «идею Яндекс.Директа», недостаточно
+      продаёт, плохо описывает услуги и неправильно расставляет акценты в отчётах. Результат — клиенты
+      спрашивают цену и уходят, конверсия даже тёплого трафика ниже, цены не растут, при первых трудностях
+      клиенты уходят.</p>
+
+    <!-- 13 -->
+    <h2 id="delegation"><span class="num">13</span>Делегирование<a class="anchor" href="#delegation">#</a></h2>
+    <p>Если проектов до пяти — делегирование не срочно. Если больше и прошлый опыт был неудачным, скорее
+      всего, делегировали неправильно. Главный принцип — <strong>вводить помощника поэтапно</strong>:
+      сначала младший директолог, потом директолог; то же с менеджером.</p>
+    <div class="callout">
+      <span class="k">Почему нельзя сразу нанять «готового»</span>
+      <p>Готовый человек на финальную позицию либо дорого стоит, либо мало что умеет за маленькие деньги.</p>
+      <p>Когда хочется резко вырасти, сначала всегда падаешь в заработке — это закон. Поэтому всё постепенно.</p>
+    </div>
+    <div class="note">Кейс Ильи: 18 проектов, двое детей, нет времени ни на что — новых клиентов он даже
+      «отправлял подальше». Подняли чек, отказались от части проектов, занялись делегированием: мастер-классы,
+      набор и отбор помощников по тестовым. Итог — <b>освободил 3–4 часа в день, передал 10 проектов и платит
+      за это 20 тыс. ₽ в месяц</b>; начал вести контент и сделал воронку на строительство домов.</div>
+    <p>Где делегирование ломается: неверная система оплат, слишком большие выплаты сразу, дела не передаются
+      постепенно, тестовые задания составлены плохо (ничего не показывают или их никто не хочет выполнять),
+      не продуманы обязанности и поэтапная нагрузка. Итог — проекты валятся, время уходит на контроль,
+      зарплата платится при плохих результатах, и в минусе остаются все: клиенты ушли, часть проектов
+      потеряна, помощница тоже ушла.</p>
+
+    <!-- 14 -->
+    <h2 id="realistic"><span class="num">14</span>Реалистичный результат: ×2, а не ×10<a class="anchor" href="#realistic">#</a></h2>
+    <div class="callout">
+      <span class="k">Честная оговорка</span>
+      <p>×10 существует только в разборах на YouTube, на вебинарах и в сторис у блогеров. В реальной работе,
+        если вы в сфере давно, его практически не бывает.</p>
+      <p>Стабильный <strong>×2 за 4–6 месяцев</strong> — это уже очень хороший результат и признак устойчивой
+        работы.</p>
+    </div>
+    <p>Отсюда же связь с делегированием: попытка резко вырасти через найм сразу трёх директологов и двух
+      менеджеров заканчивается падением, а не ростом. Всё строится постепенно.</p>
+
+    <hr class="div">
+
+    <!-- 15 -->
+    <h2 id="product"><span class="num">15</span>Программа автора<a class="anchor" href="#product">#</a></h2>
+    <p>В конце урока автор представляет своё обучение — групповое (10 мест) и личное (2 места), всего
+      <strong>12 мест</strong>. Ниже состав и условия приведены нейтрально, как факт.</p>
+    <p>За 6 недель участник, по описанию программы, должен: составить оффер, который продаёт ещё до общения;
+      упаковать свои результаты; получить контент-план на два месяца; научиться быстро писать продающий
+      контент и общаться так, чтобы поднимать чек и закрывать на пакеты услуг; начать писать отчёты,
+      повышающие LTV; собрать видео-лид-магнит и воронку для холодного трафика в связке «ТГ-канал + воронка».</p>
+    <p>Формат — Zoom-созвоны раз в неделю по 20–30 минут на человека; основная работа идёт между созвонами,
+      в домашних заданиях и их проверке. В составе — записи мастер-классов по делегированию, рекламным
+      креативам, отчётности, общению с клиентами, лидогенерации через статьи и Авито, упаковке контента и офферу.</p>
+    <table class="price">
+      <thead><tr><th>Тариф</th><th>Что входит</th><th>Цена</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><b>Групповой</b></td>
+          <td>Zoom-созвоны, 10 человек, раз в неделю; индивидуальные и общие домашки с проверкой; записи
+            мастер-классов и шаблоны.</td>
+          <td class="amt">70 000 ₽<small>в рассрочку ≈ 7 000 ₽/мес на год (+20%)</small></td>
+        </tr>
+        <tr>
+          <td><b>Личный</b></td>
+          <td>Индивидуальная работа до результата, 2 месяца; личные созвоны, постановка задач, полное
+            сопровождение.</td>
+          <td class="amt">200 000 ₽<small>в рассрочку ≈ 19 000 ₽/мес на год (+20%)</small></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="note">Рекомендации автора по входу: групповой тариф — для тех, кто уже зарабатывает больше
+      100 тыс. ₽ с трафика; личный — для тех, кто на 200–300 тыс. ₽. Отдельно оговорено: <b>не заходить
+      на последние и кредитные деньги</b> — это обучение soft skills и базе, которая раскрывается медленно,
+      а не «волшебная кнопка». Банковская рассрочка дороже на 20%, которые удерживает банк.</div>
+    <p>В подтверждение приводятся отзывы участников: понятный стартовый план после первого созвона,
+      отговорка от преждевременного запуска платного трафика («деньги на ветер»), первые сообщения от
+      клиентов уже после пары постов по контент-плану.</p>
+
+    <!-- 16 -->
+    <h2 id="summary"><span class="num">16</span>Итог<a class="anchor" href="#summary">#</a></h2>
+    <p>Вся система сводится к нескольким простым принципам, которые автор повторяет на протяжении урока:</p>
+    <ol class="steps">
+      <li><b>Упакуйте себя</b><span>Опишите результаты и услуги — то, чего не написано, не существует.</span></li>
+      <li><b>Доводите до ключевого этапа</b><span>Задача контента — превратить «заинтересовался» в «написал».</span></li>
+      <li><b>Ведите простой трафик</b><span>Контент в телеграм-канал + лид-магнит из кейса, без сложных воронок.</span></li>
+      <li><b>Работайте с тёплой базой</b><span>Старые клиенты и подписчики дают рост чека и LTV.</span></li>
+      <li><b>Удерживайте отчётностью</b><span>Отчёт защищает вас, когда цифры временно идут вниз.</span></li>
+      <li><b>Делегируйте поэтапно</b><span>Помощник растёт по ступеням; резкий рост = падение.</span></li>
+      <li><b>Ставьте реальную цель</b><span>Стабильный ×2 за полгода — это уже сильный результат.</span></li>
+    </ol>
+    <div class="callout">
+      <span class="k">Главное</span>
+      <p>Деньги там, где они уже есть: усиливайте то, что у вас уже работает, — контент, рекомендации
+        и тёплую базу.</p>
+      <p>Метод простой, но он требует регулярной работы — без неё ни упаковка, ни трафик не дадут результата.</p>
+    </div>
+
+    <hr class="div">
+    <footer>
+      <p>Это текстовый конспект видео «Как маркетологу выйти на 300 000 заработка» (спикер — Женя Тохтаров).
+        Транскрибация переработана в связную статью; смысл, факты, цифры и кейсы сохранены, продающий блок
+        приведён нейтрально. <a href="https://www.youtube.com/watch?v=qQCYMbMBedU" target="_blank" rel="noopener">Оригинал на YouTube</a>.</p>
+      <p><a href="../index.html">← Вернуться ко всем конспектам</a></p>
+    </footer>
+  </article>
+  </main>
+</div>
+
+<button id="totop" aria-label="Наверх" title="Наверх">↑</button>
+
+<script>
+(function(){
+  var root=document.documentElement;
+  // theme
+  var saved=null;
+  try{saved=localStorage.getItem('yt-theme');}catch(e){}
+  if(saved){root.setAttribute('data-theme',saved);}
+  else if(window.matchMedia&&window.matchMedia('(prefers-color-scheme:dark)').matches){
+    root.setAttribute('data-theme','dark');
+  }
+  var btn=document.getElementById('theme');
+  btn.addEventListener('click',function(){
+    var cur=root.getAttribute('data-theme')==='dark'?'dark':'light';
+    var next=cur==='dark'?'light':'dark';
+    root.setAttribute('data-theme',next);
+    try{localStorage.setItem('yt-theme',next);}catch(e){}
+  });
+
+  // progress bar + back to top
+  var bar=document.getElementById('progress');
+  var top=document.getElementById('totop');
+  function onScroll(){
+    var h=document.documentElement;
+    var max=h.scrollHeight-h.clientHeight;
+    var p=max>0?(h.scrollTop/max)*100:0;
+    bar.style.width=p+'%';
+    if(h.scrollTop>600){top.classList.add('show');}else{top.classList.remove('show');}
+  }
+  window.addEventListener('scroll',onScroll,{passive:true});
+  onScroll();
+  top.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+
+  // scroll-spy
+  var links=Array.prototype.slice.call(document.querySelectorAll('.toc a'));
+  var map={};
+  links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a;});
+  var heads=Array.prototype.slice.call(document.querySelectorAll('main h2[id]'));
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(en.isIntersecting){
+          links.forEach(function(a){a.classList.remove('active');});
+          var a=map[en.target.id];
+          if(a)a.classList.add('active');
+        }
+      });
+    },{rootMargin:'-15% 0px -75% 0px',threshold:0});
+    heads.forEach(function(h){io.observe(h);});
+  }
+
+  // close mobile toc on link click
+  var md=document.querySelector('.toc-mobile');
+  if(md){md.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click',function(){md.removeAttribute('open');});
+  });}
+})();
+</script>
+</body>
+</html>

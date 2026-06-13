@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Как запустить онлайн-курс и заработать на нём в 2026 — конспект гайда GetCourse</title>
+<meta name="description" content="Пошаговый конспект видео GetCourse: мифы, реальные кейсы, три роли в онлайн-образовании, семь компонентов проекта, воронка продаж и частые ошибки новичков.">
+<style>
+  :root{
+    --bg:#faf9f7;
+    --surface:#ffffff;
+    --surface-2:#f3f1ec;
+    --text:#262420;
+    --text-soft:#5c574f;
+    --text-faint:#8a8378;
+    --border:#e7e3db;
+    --accent:#9a6a3c;        /* тёплый приглушённый терракот/охра */
+    --accent-soft:#f0e7dc;
+    --accent-ink:#7a5128;
+    --ok:#3f7d52;
+    --shadow:0 1px 2px rgba(40,33,22,.04), 0 6px 24px rgba(40,33,22,.05);
+    --radius:14px;
+    --maxread:720px;
+    --font:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+    --serif:"Georgia","Times New Roman",serif;
+  }
+  html[data-theme="dark"]{
+    --bg:#17150f;
+    --surface:#201d16;
+    --surface-2:#262219;
+    --text:#ece7dd;
+    --text-soft:#b9b2a4;
+    --text-faint:#8b8473;
+    --border:#332f25;
+    --accent:#d3a36b;
+    --accent-soft:#2c2519;
+    --accent-ink:#e6c294;
+    --ok:#7bbf8c;
+    --shadow:0 1px 2px rgba(0,0,0,.3), 0 8px 30px rgba(0,0,0,.35);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--font);
+    font-size:18px;
+    line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+  }
+
+  /* progress bar */
+  #progress{
+    position:fixed;top:0;left:0;height:3px;width:0;
+    background:linear-gradient(90deg,var(--accent),var(--accent-ink));
+    z-index:60;transition:width .12s ease-out;
+  }
+
+  /* topbar */
+  .topbar{
+    position:sticky;top:0;z-index:50;
+    background:color-mix(in srgb,var(--bg) 86%,transparent);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--border);
+  }
+  .topbar-inner{
+    max-width:1180px;margin:0 auto;padding:10px 20px;
+    display:flex;align-items:center;justify-content:space-between;gap:16px;
+  }
+  .brand{display:flex;align-items:center;gap:10px;font-weight:600;font-size:15px;color:var(--text)}
+  .brand a{color:inherit;text-decoration:none}
+  .brand .dot{width:9px;height:9px;border-radius:50%;background:var(--accent)}
+  .back{color:var(--text-soft);text-decoration:none;font-size:14px}
+  .back:hover{color:var(--accent)}
+  .theme-toggle{
+    border:1px solid var(--border);background:var(--surface);color:var(--text-soft);
+    width:38px;height:38px;border-radius:10px;cursor:pointer;font-size:17px;
+    display:inline-flex;align-items:center;justify-content:center;transition:.15s;
+  }
+  .theme-toggle:hover{color:var(--accent);border-color:var(--accent)}
+
+  /* layout */
+  .wrap{max-width:1180px;margin:0 auto;padding:0 20px;
+    display:grid;grid-template-columns:260px minmax(0,1fr);gap:48px;}
+  aside{position:sticky;top:64px;align-self:start;height:calc(100vh - 80px);
+    overflow-y:auto;padding:28px 4px 40px;}
+  aside .toc-title{font-size:12px;letter-spacing:.08em;text-transform:uppercase;
+    color:var(--text-faint);margin:0 0 14px;font-weight:700;}
+  .toc{list-style:none;margin:0;padding:0;border-left:2px solid var(--border)}
+  .toc li{margin:0}
+  .toc a{display:block;padding:6px 0 6px 16px;margin-left:-2px;
+    border-left:2px solid transparent;color:var(--text-soft);
+    text-decoration:none;font-size:14.5px;line-height:1.4;transition:.15s;}
+  .toc a:hover{color:var(--accent)}
+  .toc a.active{color:var(--accent-ink);border-left-color:var(--accent);font-weight:600}
+
+  main{min-width:0;padding:8px 0 96px}
+  article{max-width:var(--maxread)}
+
+  /* hero */
+  .hero{padding:40px 0 8px}
+  .eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;
+    color:var(--accent-ink);background:var(--accent-soft);
+    padding:5px 12px;border-radius:999px;margin-bottom:18px}
+  h1{font-size:clamp(28px,5vw,42px);line-height:1.15;margin:.1em 0 .35em;
+    letter-spacing:-.01em;font-weight:800}
+  .lede{font-size:clamp(18px,2.4vw,21px);color:var(--text-soft);line-height:1.55;margin:0 0 24px}
+  .meta-row{display:flex;flex-wrap:wrap;gap:8px 20px;align-items:center;
+    padding:16px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);
+    font-size:14.5px;color:var(--text-soft)}
+  .meta-row b{color:var(--text)}
+  .meta-row .sep{color:var(--border)}
+
+  /* video embed + source */
+  .video{margin:24px 0 8px;border-radius:var(--radius);overflow:hidden;
+    border:1px solid var(--border);box-shadow:var(--shadow);background:#000}
+  .video iframe{display:block;width:100%;aspect-ratio:16/9;border:0}
+  .source-row{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center;
+    margin:14px 0 4px;font-size:14.5px}
+  .source-row a.src-btn{display:inline-flex;align-items:center;gap:8px;
+    text-decoration:none;color:var(--accent-ink);background:var(--accent-soft);
+    border:1px solid color-mix(in srgb,var(--accent) 25%,var(--border));
+    padding:7px 14px;border-radius:999px;font-weight:600;transition:.15s}
+  .source-row a.src-btn:hover{border-color:var(--accent)}
+
+  /* mobile toc */
+  .toc-mobile{display:none;margin:24px 0 8px;border:1px solid var(--border);
+    border-radius:12px;background:var(--surface);overflow:hidden}
+  .toc-mobile summary{cursor:pointer;padding:14px 18px;font-weight:600;list-style:none;
+    display:flex;align-items:center;justify-content:space-between}
+  .toc-mobile summary::-webkit-details-marker{display:none}
+  .toc-mobile summary::after{content:"▾";color:var(--text-faint);transition:.2s}
+  .toc-mobile[open] summary::after{transform:rotate(180deg)}
+  .toc-mobile ol{margin:0;padding:4px 18px 18px 36px;color:var(--text-soft)}
+  .toc-mobile a{color:var(--text-soft);text-decoration:none}
+  .toc-mobile a:hover{color:var(--accent)}
+
+  /* typography */
+  h2{font-size:clamp(23px,3.4vw,30px);line-height:1.25;margin:64px 0 4px;
+    letter-spacing:-.01em;font-weight:750;scroll-margin-top:80px;position:relative}
+  h2 .num{display:block;font-size:13px;font-weight:700;letter-spacing:.08em;
+    text-transform:uppercase;color:var(--accent);margin-bottom:8px}
+  h3{font-size:21px;margin:38px 0 6px;font-weight:700;scroll-margin-top:80px}
+  .anchor{color:var(--text-faint);text-decoration:none;opacity:0;margin-left:8px;
+    font-weight:400;transition:.15s}
+  h2:hover .anchor,h3:hover .anchor{opacity:1}
+  p{margin:16px 0}
+  article a{color:var(--accent-ink);text-decoration:underline;text-underline-offset:2px;text-decoration-thickness:1px}
+  strong{font-weight:700;color:var(--text)}
+  hr.div{border:0;border-top:1px solid var(--border);margin:56px 0}
+
+  ul,ol{padding-left:1.3em;margin:16px 0}
+  li{margin:8px 0}
+  ul.clean{list-style:none;padding-left:0}
+  ul.clean li{position:relative;padding-left:30px}
+  ul.clean li::before{content:"";position:absolute;left:4px;top:.62em;width:8px;height:8px;
+    border-radius:50%;background:var(--accent)}
+  ul.check li::before,ul.cross li::before{display:none}
+  ul.check li,ul.cross li{position:relative;padding-left:32px;list-style:none}
+  ul.check,ul.cross{padding-left:0}
+  ul.check li::after{content:"✓";position:absolute;left:2px;top:0;color:var(--ok);font-weight:800}
+  ul.cross li::after{content:"✕";position:absolute;left:2px;top:0;color:#c2694e;font-weight:800}
+
+  /* callout */
+  .callout{margin:30px 0;padding:22px 24px 22px 26px;border-radius:var(--radius);
+    background:var(--accent-soft);border:1px solid color-mix(in srgb,var(--accent) 25%,var(--border));
+    position:relative}
+  .callout .k{display:block;font-size:12px;font-weight:700;letter-spacing:.08em;
+    text-transform:uppercase;color:var(--accent-ink);margin-bottom:8px}
+  .callout p{margin:0;font-size:19px;line-height:1.5;color:var(--text)}
+  .callout p+p{margin-top:10px;font-size:16px;color:var(--text-soft)}
+
+  .note{margin:26px 0;padding:18px 20px;border-left:3px solid var(--accent);
+    background:var(--surface-2);border-radius:0 10px 10px 0;font-size:16.5px;color:var(--text-soft)}
+  .note b{color:var(--text)}
+
+  /* case cards */
+  .cases{display:grid;gap:18px;margin:28px 0}
+  .case{border:1px solid var(--border);border-radius:var(--radius);background:var(--surface);
+    box-shadow:var(--shadow);padding:22px 24px}
+  .case-head{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:8px}
+  .case-name{font-weight:750;font-size:18px}
+  .case-name span{display:block;font-weight:500;font-size:14px;color:var(--text-faint);margin-top:2px}
+  .case-num{font-size:26px;font-weight:800;color:var(--accent-ink);white-space:nowrap}
+  .case p{margin:12px 0 0;font-size:16px;color:var(--text-soft)}
+
+  /* role cards */
+  .roles{display:grid;gap:20px;margin:28px 0}
+  .role{border:1px solid var(--border);border-radius:var(--radius);background:var(--surface);
+    box-shadow:var(--shadow);overflow:hidden}
+  .role-top{padding:20px 24px;background:var(--surface-2);border-bottom:1px solid var(--border)}
+  .role-top h3{margin:0;font-size:20px;scroll-margin-top:0}
+  .role-top .tag{font-size:13.5px;color:var(--text-soft);margin-top:4px}
+  .role-body{padding:18px 24px 22px}
+  .role-body .lbl{font-size:12px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;
+    color:var(--text-faint);margin:14px 0 6px}
+  .role-body .lbl:first-child{margin-top:0}
+  .role-body p{margin:8px 0;font-size:15.5px}
+  .money{display:inline-block;background:var(--accent-soft);color:var(--accent-ink);
+    font-weight:700;padding:2px 10px;border-radius:8px;font-size:14px}
+
+  /* steps */
+  .steps{counter-reset:s;list-style:none;padding:0;margin:28px 0;display:grid;gap:14px}
+  .steps li{counter-increment:s;position:relative;padding:18px 20px 18px 64px;
+    border:1px solid var(--border);border-radius:12px;background:var(--surface);box-shadow:var(--shadow)}
+  .steps li::before{content:counter(s);position:absolute;left:18px;top:16px;
+    width:32px;height:32px;border-radius:9px;background:var(--accent);color:#fff;
+    display:flex;align-items:center;justify-content:center;font-weight:800;font-size:15px}
+  .steps li b{display:block;margin-bottom:2px}
+  .steps li span{color:var(--text-soft);font-size:15.5px}
+
+  /* funnel */
+  .funnel{display:grid;gap:10px;margin:26px 0}
+  .funnel .stage{display:flex;gap:14px;align-items:flex-start;padding:16px 18px;
+    border-radius:12px;background:var(--surface-2);border:1px solid var(--border)}
+  .funnel .stage .ic{flex:none;width:34px;height:34px;border-radius:9px;background:var(--accent-soft);
+    color:var(--accent-ink);display:flex;align-items:center;justify-content:center;font-weight:800}
+  .funnel .stage b{display:block}
+  .funnel .stage span{color:var(--text-soft);font-size:15.5px}
+
+  /* price table */
+  .price{width:100%;border-collapse:collapse;margin:24px 0;font-size:16px;
+    border:1px solid var(--border);border-radius:12px;overflow:hidden}
+  .price th,.price td{text-align:left;padding:13px 18px;border-bottom:1px solid var(--border)}
+  .price thead th{background:var(--surface-2);font-size:13px;letter-spacing:.04em;
+    text-transform:uppercase;color:var(--text-faint)}
+  .price tbody tr:last-child td{border-bottom:0}
+  .price td.amt{font-weight:750;color:var(--accent-ink);white-space:nowrap}
+
+  /* stat strip */
+  .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:28px 0}
+  .stat{padding:20px;border:1px solid var(--border);border-radius:12px;background:var(--surface);text-align:center}
+  .stat .big{font-size:28px;font-weight:800;color:var(--accent-ink);line-height:1.1}
+  .stat .cap{font-size:13.5px;color:var(--text-soft);margin-top:6px}
+
+  /* back to top */
+  #totop{position:fixed;right:22px;bottom:22px;width:46px;height:46px;border-radius:50%;
+    border:1px solid var(--border);background:var(--surface);color:var(--accent);
+    box-shadow:var(--shadow);cursor:pointer;font-size:20px;opacity:0;pointer-events:none;
+    transition:.2s;z-index:40}
+  #totop.show{opacity:1;pointer-events:auto}
+  #totop:hover{border-color:var(--accent)}
+
+  footer{border-top:1px solid var(--border);margin-top:40px;padding:30px 0 60px;
+    color:var(--text-faint);font-size:14.5px}
+  footer a{color:var(--text-soft)}
+
+  @media (max-width:920px){
+    .wrap{grid-template-columns:1fr;gap:0}
+    aside{display:none}
+    .toc-mobile{display:block}
+    body{font-size:17px}
+    main{padding-top:0}
+  }
+  @media (max-width:560px){
+    .stats{grid-template-columns:1fr}
+    .topbar-inner{padding:10px 16px}
+    .wrap{padding:0 16px}
+    .case-head{flex-direction:column;gap:4px}
+  }
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+</style>
+</head>
+<body>
+<div id="progress"></div>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="brand"><span class="dot"></span><a href="../index.html">yt-videos</a>
+      <span class="sep" style="color:var(--border)">/</span>
+      <a class="back" href="../index.html">← ко всем конспектам</a>
+    </div>
+    <button class="theme-toggle" id="theme" aria-label="Переключить тему" title="Светлая / тёмная тема">◐</button>
+  </div>
+</div>
+
+<div class="wrap">
+  <aside>
+    <p class="toc-title">Содержание</p>
+    <ul class="toc" id="toc">
+      <li><a href="#about">О чём это видео</a></li>
+      <li><a href="#myths">Три мифа об онлайн-курсах</a></li>
+      <li><a href="#why">Почему это выгодно</a></li>
+      <li><a href="#cases">Реальные кейсы</a></li>
+      <li><a href="#competition">А если конкуренция?</a></li>
+      <li><a href="#format">Какой формат выбрать</a></li>
+      <li><a href="#roles">Три роли в онлайне</a></li>
+      <li><a href="#components">Семь компонентов проекта</a></li>
+      <li><a href="#products">Продукты и средние чеки</a></li>
+      <li><a href="#launch">Запуск и воронка</a></li>
+      <li><a href="#concept">Концепция продукта</a></li>
+      <li><a href="#audience">Аудитория и соцсети</a></li>
+      <li><a href="#stepfunnel">Пошаговая воронка</a></li>
+      <li><a href="#mistakes">Частые ошибки</a></li>
+      <li><a href="#summary">Итог: шаги к запуску</a></li>
+    </ul>
+  </aside>
+
+  <main>
+  <article>
+    <header class="hero">
+      <span class="eyebrow">Конспект видео · GetCourse</span>
+      <h1>Как запустить онлайн-курс и заработать на нём в 2026</h1>
+      <p class="lede">Пошаговый разбор: как выйти на прибыль с первого месяца, даже если у вас
+        нет готовых уроков, опыта в бизнесе, команды и больших вложений.</p>
+      <div class="meta-row">
+        <span>Спикер: <b>Ирина Комлева</b>, директор комьюнити-проектов GetCourse</span>
+        <span class="sep">·</span>
+        <span>Источник: канал <b>GetCourse Медиа</b></span>
+        <span class="sep">·</span>
+        <span>~25 минут видео · 10 минут чтения</span>
+      </div>
+
+      <div class="video">
+        <iframe src="https://www.youtube.com/embed/pOeRTSmYKRI"
+          title="Как запустить онлайн-курс и заработать на нём в 2026 — видео на YouTube" loading="lazy"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
+      </div>
+      <div class="source-row">
+        <a class="src-btn" href="https://www.youtube.com/watch?v=pOeRTSmYKRI" target="_blank" rel="noopener">▶ Смотреть оригинал на YouTube</a>
+      </div>
+
+      <details class="toc-mobile">
+        <summary>Содержание</summary>
+        <ol>
+          <li><a href="#about">О чём это видео</a></li>
+          <li><a href="#myths">Три мифа об онлайн-курсах</a></li>
+          <li><a href="#why">Почему это выгодно</a></li>
+          <li><a href="#cases">Реальные кейсы</a></li>
+          <li><a href="#competition">А если конкуренция?</a></li>
+          <li><a href="#format">Какой формат выбрать</a></li>
+          <li><a href="#roles">Три роли в онлайне</a></li>
+          <li><a href="#components">Семь компонентов проекта</a></li>
+          <li><a href="#products">Продукты и средние чеки</a></li>
+          <li><a href="#launch">Запуск и воронка</a></li>
+          <li><a href="#concept">Концепция продукта</a></li>
+          <li><a href="#audience">Аудитория и соцсети</a></li>
+          <li><a href="#stepfunnel">Пошаговая воронка</a></li>
+          <li><a href="#mistakes">Частые ошибки</a></li>
+          <li><a href="#summary">Итог: шаги к запуску</a></li>
+        </ol>
+      </details>
+    </header>
+
+    <!-- 1 -->
+    <h2 id="about"><span class="num">01</span>О чём это видео<a class="anchor" href="#about">#</a></h2>
+    <p>Это пошаговый план, по которому можно запустить онлайн-курс и выйти на прибыль уже
+      в первый месяц — без вложений и без команды. Автор обещает показать, как реально
+      заработать миллион на онлайн-обучении, даже если сейчас у вас нет ни готовых уроков,
+      ни предпринимательского опыта.</p>
+    <p>Почему именно Ирина рассказывает об этом? Она создала клуб, где развиваются более
+      <strong>5000 экспертов</strong> с собственными онлайн-школами — от небольших до
+      многомиллионных. А ученики её курса <strong>GetStart</strong> в сумме заработали
+      более <strong>200 миллионов рублей</strong> после того, как разобрались с базовыми
+      шагами из этого видео.</p>
+    <p>Зачем вообще записан этот разбор? Потому что <strong>95% людей</strong>, начинающих
+      бизнес или подработку в онлайне, терпят неудачу. Они стартуют со сложных моделей,
+      подражают крупным игрокам или слушают псевдоэкспертов, которые говорят о вложениях,
+      запутанных схемах и непонятной монетизации. Здесь же — простой пошаговый путь, по
+      которому можно постепенно наращивать обороты и дойти до миллиона.</p>
+
+    <!-- 2 -->
+    <h2 id="myths"><span class="num">02</span>Три мифа, которые останавливают новичков<a class="anchor" href="#myths">#</a></h2>
+
+    <h3>Миф 1. Нужен дорогой, «вау» контент</h3>
+    <p>Кажется, что начинать надо со съёмки красивого контента с субтитрами, эффектами и
+      наворотами, как у популярного блогера. На деле такой контент <strong>отдаляет вас от
+      продаж</strong>, никак не связан с организацией школы и вообще может остаться
+      невостребованным, если вы не выстроили систему, о которой пойдёт речь дальше.</p>
+
+    <h3>Миф 2. Нужны большие вложения на старте</h3>
+    <p>Мы привыкли, что бизнес — это затраты: помещения, поставки, персонал. Эксперт с
+      предпринимательским опытом, переходя в онлайн, считает, что нужны бюджеты на маркетинг,
+      привлечение базы, оформление. Но чтобы стартовать, нужно совсем немного:
+      <strong>ноутбук, смартфон, веб-камера и оплата платформы</strong>, где будут лежать
+      ваши курсы.</p>
+
+    <h3>Миф 3. Надо быть блогером с большой аудиторией</h3>
+    <p>Аудитория, которая знает вас как эксперта, — это плюс. Но чтобы сделать первые продажи
+      и запустить мотор онлайн-школы, <strong>быть блогером не обязательно</strong>. Откуда
+      брать аудиторию — разберём ниже.</p>
+
+    <!-- 3 -->
+    <h2 id="why"><span class="num">03</span>Почему создавать онлайн-курсы выгодно<a class="anchor" href="#why">#</a></h2>
+    <p>Речь идёт об инфобизнесе — бизнесе на продаже информации. Но внимание: качественной,
+      экспертной и проверенной информации. Это константа. Главные преимущества:</p>
+    <ul class="clean">
+      <li><strong>Быстрый старт.</strong> Первую выручку и прибыль можно получить уже через месяц.</li>
+      <li><strong>Минимальные вложения</strong> — от 0 до 20 000 ₽. Есть примеры тех, кто заработал
+        первые деньги даже на пробном периоде платформы.</li>
+      <li><strong>Принцип one-to-many.</strong> Один продукт создаётся однажды, а продаётся много
+        раз и многим людям — это напрямую влияет на выручку и маржинальность.</li>
+      <li><strong>Нет привязки к географии.</strong> Покупатель может быть и в соседнем доме, и за
+        тысячу километров.</li>
+      <li><strong>Высокие шансы.</strong> На платформе уже работают более 19 000 школ, а курсы
+        прошли 73 млн человек.</li>
+    </ul>
+
+    <div class="stats">
+      <div class="stat"><div class="big">19 000+</div><div class="cap">онлайн-школ на платформе</div></div>
+      <div class="stat"><div class="big">73 млн</div><div class="cap">человек прошли курсы</div></div>
+      <div class="stat"><div class="big">13 млрд ₽</div><div class="cap">заработали новички за 2024 год</div></div>
+    </div>
+
+    <p>Это самый быстрый способ зарабатывать, когда ресурсы ограничены. Если у вас нет
+      капитала, опыта или команды — вы продаёте своё время и навыки, которые востребованы.
+      Онлайн-курс легко масштабировать, и он не ограничен регионом.</p>
+
+    <div class="callout">
+      <span class="k">Ключевая мысль</span>
+      <p>Офлайн всегда упирается в потолок: один клиент — одна единица времени. Чтобы
+        зарабатывать больше, приходится брать больше клиентов и жертвовать выходными.
+        Онлайн-курс снимает этот потолок.</p>
+    </div>
+
+    <p>И это не только для бьюти-мастеров или врачей. Онлайн-курсы запускают по самым разным
+      темам: рисование, хобби, фитнес, психология, здоровье, финансовая грамотность,
+      профессии — и даже курсы краболовов и сыроваров.</p>
+
+    <!-- 4 -->
+    <h2 id="cases"><span class="num">04</span>Реальные кейсы<a class="anchor" href="#cases">#</a></h2>
+    <p>Чтобы развеять скепсис — три истории людей, которые масштабировали доход через
+      онлайн-курсы.</p>
+
+    <div class="cases">
+      <div class="case">
+        <div class="case-head">
+          <div class="case-name">Анна Романова <span>SMM-специалист, 8 лет опыта</span></div>
+          <div class="case-num">500 000 ₽</div>
+        </div>
+        <p>Начинала с дохода 5000 ₽ и ведения аккаунтов. Очевидной идеей был курс по SMM, но
+          Анна учла, что аудитория слишком разная, и выбрала тему с быстрым видимым результатом —
+          <strong>нейросети</strong>. После исследования ЦА она выделила платёжеспособный сегмент
+          (SMM-менеджеры и контент-мейкеры), которым её знания помогали зарабатывать больше.</p>
+        <p>Подготовка: прогрев через сторис и рассылки, методология, чат-боты в Telegram, лендинг.
+          Продажи шли <strong>без вебинара</strong> — Анна стеснялась камеры. Сработал эффект FOMO:
+          большинство оплат прошло за два дня до закрытия продаж. Итог — <strong>более 500 тыс. ₽
+          с первого запуска</strong>.</p>
+      </div>
+
+      <div class="case">
+        <div class="case-head">
+          <div class="case-name">Алина <span>мастер маникюра, 10+ лет опыта</span></div>
+          <div class="case-num">1 000 000 ₽</div>
+        </div>
+        <p>На старте — всего <strong>6000 подписчиков</strong> и ни одного запуска за плечами.
+          Аудитория уже знала её как эксперта, поэтому Алина сразу запустила платный продукт.
+          Обошлась <strong>10 постами</strong> (упор на качество, а не количество), переводила
+          подписчиков из соцсети в Telegram и там делала закрытые продажи — за 3 дня собрала 70%
+          выручки. Уроки записывала сама.</p>
+        <p>Результат: <strong>150 учеников</strong> в первом потоке с чеком 7000 ₽ и
+          <strong>более 1 млн ₽</strong>. Плюс свободный график и возможность делегировать. Это и
+          есть тот самый «миллион без большой аудитории».</p>
+      </div>
+
+      <div class="case">
+        <div class="case-head">
+          <div class="case-name">Римма Арнольди <span>подолог, 15 лет стажа</span></div>
+          <div class="case-num">17 000 000 ₽</div>
+        </div>
+        <p>К Римме шёл поток запросов от русскоязычной аудитории из США и Европы, а офлайн уже не
+          масштабировался. Первый запуск был скромным экспериментом — <strong>30 учеников</strong>
+          с одного поста по 3500 ₽, — но он подтвердил, что формат работает и знания применимы на
+          практике. Дальше цену подняли до 10 000 ₽.</p>
+        <p>Затем Римма начала работать с продюсером, запустила мини-вебинар на <strong>3,5 млн ₽</strong>,
+          и школа выросла до <strong>17 млн ₽ за 4 месяца</strong>. Факторы успеха: узкая ниша
+          (единственная масштабная школа подологии в России), 15 лет практики, разнообразие тарифов
+          с дорогим веб-тарифом и — <strong>честность</strong> с аудиторией.</p>
+      </div>
+    </div>
+
+    <div class="callout">
+      <span class="k">Принцип</span>
+      <p>Ваши курсы будут легко продаваться, если они либо помогают <strong>больше
+        зарабатывать</strong>, либо помогают <strong>хорошо экономить</strong>.</p>
+    </div>
+
+    <!-- 5 -->
+    <h2 id="competition"><span class="num">05</span>А если конкуренция? Почему выходить не поздно<a class="anchor" href="#competition">#</a></h2>
+    <p>Кажется, что рынок переполнен и поздно. Но именно <strong>новички заработали более
+      13 млрд ₽ в 2024 году</strong>. Конкуренция — не стоп-фактор, а признак здорового рынка:
+      раз есть конкуренты, значит спрос уже сформирован. Вам проще понять, что востребовано, за
+      что готовы платить, чего не хватает в текущих форматах, и сориентироваться по ценам.</p>
+    <div class="callout">
+      <span class="k">Ключевая мысль</span>
+      <p>Люди покупают у людей. Ваш опыт, харизма и подача уникальны по умолчанию — каждый
+        эксперт находит своего ученика.</p>
+    </div>
+    <p>И не бойтесь больших устоявшихся школ: в них эксперты так далеко ушли от клиентов, что не
+      могут дать индивидуальный подход. А вы, начиная, как раз можете уделить внимание каждому.</p>
+
+    <!-- 6 -->
+    <h2 id="format"><span class="num">06</span>Какой формат выбрать<a class="anchor" href="#format">#</a></h2>
+    <p>«Онлайн-курс» — условность. Формат передачи знаний может быть любым: марафон по йоге,
+      пакет консультаций юриста, вебинар по нейросетям, наставничество по веб-дизайну,
+      кулинарный мастер-класс, PDF-гайд с рецептами, клуб, интенсив или онлайн-разбор.</p>
+    <p>Любой из них можно быстро создать и запустить с минимальными вложениями — без офиса и
+      команды на старте, — а продавать многократно и без ограничений по географии.</p>
+
+    <!-- 7 -->
+    <h2 id="roles"><span class="num">07</span>Три роли в онлайн-образовании<a class="anchor" href="#roles">#</a></h2>
+    <p>В онлайн-образовании встречаются три основные роли — <strong>эксперт</strong>,
+      <strong>продюсер</strong> и <strong>технический специалист</strong>. Если ни одна
+      пока не «ваша», возможно, подойдёт следующая.</p>
+
+    <div class="roles">
+      <div class="role">
+        <div class="role-top">
+          <h3>Эксперт</h3>
+          <div class="tag">Накопил знания и практику, готов передавать их ученикам</div>
+        </div>
+        <div class="role-body">
+          <p>Формирует программу, создаёт контент, общается с аудиторией, контролирует качество
+            и следит за результатами учеников. Работает по модели one-to-many — высокий доход
+            возможен уже с первого потока. Доход = <span class="money">кол-во учеников × средний чек</span>.</p>
+          <p class="lbl">Подходит, если</p>
+          <ul class="check">
+            <li>есть опыт и практика в профессии или хобби, и хочется делиться результатом;</li>
+            <li>хочется масштабироваться и перестать продавать только своё время;</li>
+            <li>важна свобода, работа из любой точки, график под себя;</li>
+            <li>любите делиться знаниями и готовы брать ответственность.</li>
+          </ul>
+          <p class="lbl">Не подходит, если</p>
+          <ul class="cross">
+            <li>нет опыта и практических результатов в своей сфере;</li>
+            <li>не готовы вкладываться в обучение и давать обратную связь;</li>
+            <li>стабильная зарплата комфортнее, чем риск;</li>
+            <li>ждёте, что продюсер сделает всё за вас.</li>
+          </ul>
+          <p class="lbl">Пример</p>
+          <p>Полина Рыбакова (ниша танца) с марта 2024 к 2025 году вышла на выручку
+            <span class="money">18 млн ₽</span>.</p>
+        </div>
+      </div>
+
+      <div class="role">
+        <div class="role-top">
+          <h3>Продюсер</h3>
+          <div class="tag">Отвечает за результат запусков и систему продаж</div>
+        </div>
+        <div class="role-body">
+          <p>Берёт на себя исследования, воронку, трафик, юнит-экономику — всё от лид-магнита до
+            регулярных продаж. Разгружает эксперта, работая с ним как партнёр. Получает
+            <span class="money">30–50% выручки</span> плюс бонусы за KPI, чтобы расти вместе с проектом.</p>
+          <p class="lbl">Подходит, если</p>
+          <ul class="check">
+            <li>любите управлять проектом, выстраивать процессы и мыслить стратегически;</li>
+            <li>разбираетесь в маркетинге, аналитике и продажах;</li>
+            <li>быстро адаптируетесь к трендам, алгоритмам, ИИ и новым мессенджерам;</li>
+            <li>умеете работать с командой и делегировать.</li>
+          </ul>
+          <p class="lbl">Не подходит, если</p>
+          <ul class="cross">
+            <li>боитесь брать ответственность за финансовый результат;</li>
+            <li>любите узкие задачи, рутину и чёткие регламенты;</li>
+            <li>не любите цифры и аналитику;</li>
+            <li>тяжело работать в команде и общаться с экспертами.</li>
+          </ul>
+          <p class="lbl">Примеры</p>
+          <p>Юлия Анаева увеличила выручку школы по плетению косичек в 1,5 раза в низкий сезон.
+            Сергей Горчаков — производитель гуслей — собрал аудиторию и создал школу по
+            <strong>этно-вокалу</strong> с приглашёнными преподавателями, заработав
+            <span class="money">7 млн ₽ за 4 месяца</span>.</p>
+        </div>
+      </div>
+
+      <div class="role">
+        <div class="role-top">
+          <h3>Технический специалист</h3>
+          <div class="tag">Реализует идеи продюсера и контент эксперта технически</div>
+        </div>
+        <div class="role-body">
+          <p>Благодаря ему работают сайты и кнопки оплаты, ученики получают доступы, собираются
+            тренинги, лендинги, чат-боты и рассылки, проходят вебинары. Сопровождение проекта —
+            <span class="money">30–50 тыс. ₽/мес</span>; ведя 3–4 проекта, можно зарабатывать
+            до <span class="money">150 тыс. ₽</span>. Кастомные настройки и собственные
+            разработки приносят больше.</p>
+          <p class="lbl">Подходит, если</p>
+          <ul class="check">
+            <li>хотите начать с простых шагов и понять техническую сторону бизнеса;</li>
+            <li>предпочитаете быть за кадром, без продаж и продвижения;</li>
+            <li>хотите стабильный доход без рисков от запусков;</li>
+            <li>умеете наводить порядок в процессах и любите читать инструкции.</li>
+          </ul>
+          <p class="lbl">Не подходит, если</p>
+          <ul class="cross">
+            <li>не готовы к рутине, настройкам и проверке интеграций;</li>
+            <li>хотите быстро заработать миллион;</li>
+            <li>любите творчество и хотите быть на виду;</li>
+            <li>не любите сервисы, цифры и работу у монитора.</li>
+          </ul>
+          <p class="lbl">Минусы</p>
+          <p>Ограниченность в масштабировании (больше 4 проектов — потеря качества), высокая
+            конкуренция, зависимость от загрузки заказчика.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 8 -->
+    <h2 id="components"><span class="num">08</span>Семь компонентов успешного онлайн-проекта<a class="anchor" href="#components">#</a></h2>
+    <p>Чтобы проект действительно заработал, нужна система из связанных частей.</p>
+
+    <ol class="steps">
+      <li><b>Платформа</b><span>Сердце школы: единое место, где хранятся уроки и материалы 24/7,
+        ученики мгновенно получают доступ после оплаты, а вы контролируете весь процесс — от
+        покупки до выдачи диплома. Защита контента от копирования, аналитика и геймификация.
+        Облачные хранилища этого не дают: ручные доступы, утечки, нет аналитики, возвраты.</span></li>
+      <li><b>Вебинары</b><span>И продающие, и обучающие. Проводить их нужно <strong>внутри той же
+        экосистемы</strong>, где лежат курсы, — иначе теряются данные о том, кто пришёл, оставил
+        заявку и оплатил. Прямо в вебинарной комнате — формы оплаты; есть автовебинары,
+        демонстрация экрана и полная статистика.</span></li>
+      <li><b>Лендинги</b><span>Страница, где клиент узнаёт о продукте и оставляет данные. Если
+        делать её на стороннем сервисе, данные могут теряться. Готовые шаблоны под
+        онлайн-образование, встроенная оплата (GetModule) с рассрочками, и автоматические
+        действия после заявки: чат-бот, письмо, открытие урока.</span></li>
+      <li><b>Рассылки</b><span>Must-have. Не только письма, но и сообщения в чат-бот, SMS,
+        автозвонки. Сегментация, таймеры, картинки и кнопки на продающие страницы. Работают и
+        на текущих учеников (старт уроков, дипломы), и на допродажи новых продуктов.</span></li>
+      <li><b>Аналитика</b><span>Без анализа данных платформа, лендинги и рассылки бесполезны.
+        Нужно видеть путь клиента: зарегистрировался на вебинар → получил письмо → дошёл →
+        оставил заявку → оплатил. Это удобные дашборды (посещения, продажи, прохождение курса),
+        которых может быть сколько угодно.</span></li>
+      <li><b>Автоматизация</b><span>Автооткрытие уроков, автовебинары, напоминания о платежах,
+        статусы рассрочек. Позволяет делать больше в сжатые сроки, освобождает от рутины и
+        создаёт продукты со стабильным доходом.</span></li>
+      <li><b>CRM</b><span>Система для продаж. Помогает вырасти от 300 тыс. до миллиона и выше:
+        не упустить ни один заказ, знать всё о клиенте и впоследствии нанять менеджеров по
+        продажам.</span></li>
+    </ol>
+
+    <div class="note"><b>Главное:</b> работая в одной экосистеме, вы не теряете ни одного
+      клиента, видите все процессы прозрачно и можете выстроить автоматизацию. Все инструменты
+      работают друг с другом, как слаженный оркестр.</div>
+
+    <!-- 9 -->
+    <h2 id="products"><span class="num">09</span>Топовые продукты и средние чеки<a class="anchor" href="#products">#</a></h2>
+    <p>Средний чек — это среднее значение, которое использует большинство школ для конкретного
+      формата. Эти ориентиры выявлены на данных 19 000 школ.</p>
+
+    <table class="price">
+      <thead><tr><th>Формат</th><th>Средний чек</th></tr></thead>
+      <tbody>
+        <tr><td>Курс</td><td class="amt">~30 000 ₽</td></tr>
+        <tr><td>Интенсив</td><td class="amt">~10 000 ₽</td></tr>
+        <tr><td>Клуб</td><td class="amt">~8 000 ₽</td></tr>
+        <tr><td>Мастер-класс</td><td class="amt">~5 000 ₽</td></tr>
+        <tr><td>Вебинар</td><td class="amt">~3 000 ₽</td></tr>
+      </tbody>
+    </table>
+
+    <p>Почему для курса именно ~30 000 ₽? При этой сумме сходится экономика. Рано или поздно
+      придётся масштабироваться и вкладываться в привлечение новой аудитории — для этого нужен
+      ресурс. Если продавать большой курс за бесценок, вы быстро «выжмете» аудиторию, не накопите
+      на трафик, и модель рухнет.</p>
+    <div class="note">Вебинар — не всегда бесплатный «прогрев». Это может быть самостоятельный
+      продукт: уникальная лекция или разбор трендов на основе исследований и опыта, за которые
+      люди готовы платить.</div>
+
+    <!-- 10 -->
+    <h2 id="launch"><span class="num">10</span>Запуск и воронка продаж<a class="anchor" href="#launch">#</a></h2>
+    <p><strong>Запуск</strong> — последовательная система шагов, которая за короткий срок
+      собирает аудиторию, заинтересовывает продуктом и приводит к продажам. Цель — максимальная
+      выручка в ограниченные сроки и база для следующего потока.</p>
+    <p>Запуск идёт по <strong>воронке</strong> — системе последовательных шагов от знакомства до
+      покупки. Глобально это четыре этапа:</p>
+
+    <div class="funnel">
+      <div class="stage"><div class="ic">1</div><div><b>Осведомлённость</b><span>Клиент узнаёт, что
+        его проблему можно решить или что есть эксперт, готовый помочь.</span></div></div>
+      <div class="stage"><div class="ic">2</div><div><b>Интерес</b><span>Эксперт раскрывает суть
+        продукта или идеи, и клиент думает: «Я давно хотел это решить».</span></div></div>
+      <div class="stage"><div class="ic">3</div><div><b>Решение</b><span>Показываем возможности
+        продукта на фоне альтернатив (сделать самому, нанять кого-то, ничего не делать).</span></div></div>
+      <div class="stage"><div class="ic">4</div><div><b>Действие</b><span>Клиент оставляет заявку
+        и совершает покупку.</span></div></div>
+    </div>
+
+    <p>Весь процесс работает на двух уровнях:</p>
+    <ul class="clean">
+      <li><strong>Контентный</strong> — сторис, посты с прогревом, эфиры, сообщения в чат-боте и письмах.</li>
+      <li><strong>Технический</strong> — лендинги, рассылки, анкеты предзаписи, тренинги, чат-боты.</li>
+    </ul>
+
+    <!-- 11 -->
+    <h2 id="concept"><span class="num">11</span>Концепция продукта: конкретный результат<a class="anchor" href="#concept">#</a></h2>
+    <p>Прежде чем делать воронку, определитесь, <strong>что</strong> вы продаёте — и какой
+      конкретный результат получит ученик. Плохая идея — запихнуть весь опыт в один курс
+      «Здоровье для всей страны»: у такого продукта нет маленького понятного результата, за
+      который готовы платить.</p>
+
+    <div class="callout">
+      <span class="k">Метафора</span>
+      <p>Мы не покупаем весь магазин обуви сразу. Под свидание — красивые туфли, в отпуск —
+        шлёпки, в поход — ботинки. Так же мыслит ваш клиент: он покупает продукт под конкретную
+        цель и результат.</p>
+    </div>
+
+    <p>Поэтому делаем конкретный продукт:</p>
+    <ul class="clean">
+      <li>не «деньги вообще», а <strong>как закрыть кредитки</strong>;</li>
+      <li>не «здоровье», а <strong>как снять боль в спине за 7 шагов без лекарств и остеопата</strong>;</li>
+      <li>не «красота», а <strong>как избавиться от тёмных кругов и перестать фотошопить себя</strong>.</li>
+    </ul>
+
+    <!-- 12 -->
+    <h2 id="audience"><span class="num">12</span>Аудитория и соцсети<a class="anchor" href="#audience">#</a></h2>
+    <p>На выбор темы влияет аудитория, к которой у вас есть доступ <strong>прямо сейчас</strong>:
+      текущие клиенты, подписчики, знакомые. Не думайте обо всех сразу. Если вы собрали
+      начинающих мастеров маникюра — сделайте продукт, актуальный для них (как увеличить
+      заработок, новая техника). Прислушайтесь к запросам офлайн-клиентов: что они раз за разом
+      просят объяснить.</p>
+    <p>Соцсети — большой плюс, даже если блога раньше не было. Не каждый купит сразу, но,
+      познакомившись с вами и наблюдая за результатами учеников, человек становится ближе к
+      покупке. Важно вести их с умом и регулярно:</p>
+    <ul class="clean">
+      <li><strong>Упакуйте профиль:</strong> в чём вы эксперт и чем поможете. Хвалитесь опытом —
+        годы в профессии, диплом, известные клиенты, кейсы и упоминания в СМИ.</li>
+      <li><strong>Делайте контент регулярно</strong> — обучающий и вовлекающий. Не обязательно
+        «5 способов как»: будьте естественными, рассказывайте о работе, развеивайте мифы.</li>
+      <li><strong>Подбирайте формат под аудиторию:</strong> вдумчивой — лонгриды и статьи,
+        динамичной — лёгкие эффектные видео; работают и посты, и карусели.</li>
+    </ul>
+    <div class="note">Кейс Ангелины Поветевой (художница) — <b>почти 8 млн ₽ за 4 месяца</b>.
+      Она снимала вертикальные видео о том, как рисует картины, чтобы их продавать, но к ней
+      пошли запросы «научите рисовать». Тема курса пришла естественно — от самой аудитории.</div>
+
+    <!-- 13 -->
+    <h2 id="stepfunnel"><span class="num">13</span>Пошаговая воронка<a class="anchor" href="#stepfunnel">#</a></h2>
+    <p>Рассмотрим случай, когда у вас есть хотя бы небольшие соцсети.</p>
+
+    <ol class="steps">
+      <li><b>Контент</b><span>Рассказываем о проблеме, которая волнует аудиторию, рассуждаем,
+        задаём вопросы.</span></li>
+      <li><b>Лид-магнит</b><span>Бесплатный продукт, который демонстрирует экспертность и
+        закрывает часть потребности: чек-лист, инструкция, демо-урок, гайд, e-book, тест с
+        персональным результатом, бесплатный вебинар. Должен быть в тему платного продукта, но
+        оставлять лёгкую незавершённость. Обязательна галочка согласия на обработку
+        персональных данных (на платформе есть готовые шаблоны чекбоксов и оферт).</span></li>
+      <li><b>Сбор базы</b><span>В обмен на лид-магнит вы получаете контакты — это <strong>главный
+        актив</strong> школы. Подписчик может отписаться и забыть; контакт в базе остаётся, и вы
+        сами решаете, как часто с ним коммуницировать.</span></li>
+      <li><b>Чат-бот или канал</b><span>Продолжаем коммуникацию: автоматические рассылки, тесты,
+        анонсы вебинаров, анкеты предзаписи (чат-бот) либо полезный контент и общение (канал).
+        Можно использовать и то, и другое.</span></li>
+      <li><b>Продажа</b><span>В сообщениях, через вебинар или трансляцию. Заранее настройте форму
+        заказа, приём платежей и письма — в том числе письма-«дожим» для тех, кто оформил заказ,
+        но не оплатил. Подготовьте скрипты и отработку возражений.</span></li>
+      <li><b>Проведение курса</b><span>Убедитесь, что все получили доступы и материалы. Первый
+        курс можно вести «вживую» вебинарами, а запись выкладывать на платформу — это создаёт
+        эффект живого участия. Напоминайте об уроках, спрашивайте о сложностях.</span></li>
+    </ol>
+
+    <div class="callout">
+      <span class="k">Притча о миллионере</span>
+      <p>Миллионер повесил баннер «Ищу жену», собрал полный зал, выбрал одну — и ушёл на свидание.
+        Не подошла. Если он не взял контакты остальных, всё придётся начинать заново.</p>
+      <p>Если вы не собираете контакты, вы тратите действия впустую — и платите за трафик дважды.
+        Поэтому всегда используйте бесплатники и собирайте базу.</p>
+    </div>
+
+    <div class="note"><b>Первый поток — самый важный.</b> Вкладывайтесь в него максимально:
+      именно здесь вы собираете кейсы и отзывы, без которых следующие продажи идут хуже. Любой
+      курс продаётся лучше, когда у него есть проверенный результат.</div>
+
+    <!-- 14 -->
+    <h2 id="mistakes"><span class="num">14</span>Частые ошибки новичков<a class="anchor" href="#mistakes">#</a></h2>
+    <ul class="cross">
+      <li><strong>Расплывчатая программа.</strong> «Просто счастье», «просто здоровье», «тренировки
+        каждый день» — непонятно, для кого и в чём ценность.</li>
+      <li><strong>Нет конкретного результата в оффере.</strong> Оффер — конкретное предложение
+        (продукт + срок + цена + ценность). Без понятного результата клиенту неясно, ради чего
+        платить.</li>
+      <li><strong>Плохая упаковка профиля и продукта.</strong> Описывайте не весь бэкграунд, а ту
+        часть экспертизы, что нужна для продажи именно этого курса.</li>
+      <li><strong>Перегруженный лид-магнит.</strong> Если бесплатник полностью закрывает проблему
+        («5000 рецептов сразу»), покупать курс незачем. Он должен раскрывать незнание или
+        закрывать лишь часть потребности.</li>
+      <li><strong>Нерегулярный контент или отсутствие прогрева.</strong> Резкое «Я открываю курс!»
+        без подготовки не работает — люди ещё не вспомнили о своей проблеме.</li>
+      <li><strong>Слабая техническая реализация.</strong> Не перепроверили путь пользователя.
+        Обязательно пройдите всё сами: доступы, письма, оплаты — что ничего не «отвалилось».</li>
+    </ul>
+    <div class="note">Если на контент нет реакции — лайков и комментариев, — значит, либо
+      аудитория «мёртвая», либо что-то делается не так. Контент — это не баннер у дороги, а
+      способ контактировать с аудиторией.</div>
+
+    <!-- 15 -->
+    <h2 id="summary"><span class="num">15</span>Итог: шаги к запуску на миллион<a class="anchor" href="#summary">#</a></h2>
+    <ol class="steps">
+      <li><b>Определите роль</b><span>Эксперт или продюсер (а если продюсер — найдите эксперта).</span></li>
+      <li><b>Сформируйте продукт</b><span>Тему, максимально востребованную в вашей текущей аудитории.</span></li>
+      <li><b>Изучите потребности аудитории</b><span>Чтобы понять, как подать продукт и выстроить продажи.</span></li>
+      <li><b>Упакуйте аккаунт и начните контент</b><span>Презентуйте себя в соцсетях.</span></li>
+      <li><b>Создайте лид-магнит</b><span>Чтобы клиенты бежали скачивать его и попадали в базу.</span></li>
+      <li><b>Начните продавать до записи контента</b><span>Сначала продаём — потом создаём. Нужно
+        подтверждение рублём, что тема востребована. Рисков нет: если не зашло, а есть пара
+        заказов — делаете возврат.</span></li>
+      <li><b>Настройте инструменты платформы</b><span>Чтобы ученики могли оплатить и получить доступ.</span></li>
+      <li><b>Масштабируйтесь шаг за шагом</b><span>Расширяйте линейку, создавайте новые форматы,
+        делегируйте рутину.</span></li>
+    </ol>
+
+    <div class="callout">
+      <span class="k">Главный принцип запуска</span>
+      <p>Сначала продаём — потом создаём контент. Так вы проверяете тему рублём ещё до того, как
+        потратили силы на запись уроков.</p>
+    </div>
+
+    <p>Не бойтесь начать с малого. Даже 3–4 ученика в первом запуске — это хорошее начало для
+      будущей большой онлайн-школы. Пометьте в календаре дату первого запуска прямо сейчас и не
+      откладывайте.</p>
+
+    <hr class="div">
+    <footer>
+      <p>Это текстовый конспект видео <b>«Как запустить онлайн-курс и заработать на нём в 2026»</b>
+        с канала GetCourse Медиа. Транскрибация переработана в связную статью; смысл, факты,
+        цифры и кейсы сохранены. Названия продуктов и имена приведены к корректному виду.</p>
+      <p><a href="../index.html">← Вернуться ко всем конспектам</a></p>
+    </footer>
+  </article>
+  </main>
+</div>
+
+<button id="totop" aria-label="Наверх" title="Наверх">↑</button>
+
+<script>
+(function(){
+  var root=document.documentElement;
+  // theme
+  var saved=null;
+  try{saved=localStorage.getItem('yt-theme');}catch(e){}
+  if(saved){root.setAttribute('data-theme',saved);}
+  else if(window.matchMedia&&window.matchMedia('(prefers-color-scheme:dark)').matches){
+    root.setAttribute('data-theme','dark');
+  }
+  var btn=document.getElementById('theme');
+  btn.addEventListener('click',function(){
+    var cur=root.getAttribute('data-theme')==='dark'?'dark':'light';
+    var next=cur==='dark'?'light':'dark';
+    root.setAttribute('data-theme',next);
+    try{localStorage.setItem('yt-theme',next);}catch(e){}
+  });
+
+  // progress bar + back to top
+  var bar=document.getElementById('progress');
+  var top=document.getElementById('totop');
+  function onScroll(){
+    var h=document.documentElement;
+    var max=h.scrollHeight-h.clientHeight;
+    var p=max>0?(h.scrollTop/max)*100:0;
+    bar.style.width=p+'%';
+    if(h.scrollTop>600){top.classList.add('show');}else{top.classList.remove('show');}
+  }
+  window.addEventListener('scroll',onScroll,{passive:true});
+  onScroll();
+  top.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+
+  // scroll-spy
+  var links=Array.prototype.slice.call(document.querySelectorAll('.toc a'));
+  var map={};
+  links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a;});
+  var heads=Array.prototype.slice.call(document.querySelectorAll('main h2[id]'));
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(en.isIntersecting){
+          links.forEach(function(a){a.classList.remove('active');});
+          var a=map[en.target.id];
+          if(a)a.classList.add('active');
+        }
+      });
+    },{rootMargin:'-15% 0px -75% 0px',threshold:0});
+    heads.forEach(function(h){io.observe(h);});
+  }
+
+  // close mobile toc on link click
+  var md=document.querySelector('.toc-mobile');
+  if(md){md.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click',function(){md.removeAttribute('open');});
+  });}
+})();
+</script>
+</body>
+</html>
